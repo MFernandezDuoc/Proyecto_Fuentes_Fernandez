@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.PanalSuite" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Tema base del sistema. Todo el color real lo maneja Compose en ui/theme/Theme.kt.
+         Aqui solo se evita el destello blanco mientras Compose dibuja la primera pantalla. -->
+    <style name="Theme.PanalSuite" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
 </resources>
