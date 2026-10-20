@@ -141,7 +141,7 @@ fun LoginContent(
                 OutlinedTextField(
                     value = state.password,
                     onValueChange = onPasswordChange,
-                    label = { Text("Contrasena") },
+                    label = { Text("Contraseña") },
                     leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                     trailingIcon = {
                         IconButton(onClick = { passwordVisible = !passwordVisible }) {
@@ -152,9 +152,9 @@ fun LoginContent(
                                     Icons.Default.Visibility
                                 },
                                 contentDescription = if (passwordVisible) {
-                                    "Ocultar contrasena"
+                                    "Ocultar contraseña"
                                 } else {
-                                    "Mostrar contrasena"
+                                    "Mostrar contraseña"
                                 }
                             )
                         }
@@ -166,7 +166,7 @@ fun LoginContent(
                         if (state.showErrors && error != null) {
                             Text(error)
                         } else {
-                            Text("Contrasena de prueba: $demoPassword")
+                            Text("Contraseña de prueba: $demoPassword")
                         }
                     },
                     visualTransformation = if (passwordVisible) {
@@ -226,7 +226,7 @@ private fun LoginHeader() {
         )
 
         Text(
-            text = "Gestion movil de flujos de trabajo",
+            text = "Gestión móvil de flujos de trabajo",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

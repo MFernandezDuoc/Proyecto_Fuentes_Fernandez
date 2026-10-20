@@ -195,7 +195,7 @@ fun ProfileContent(
                     )
 
                     Text(
-                        text = "Todo se guarda en el telefono con SharedPreferences, " +
+                        text = "Todo se guarda en el teléfono con SharedPreferences, " +
                                 "sobrevive al cierre de la aplicacion y no necesita internet.",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -215,7 +215,7 @@ fun ProfileContent(
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Cerrar sesion")
+                Text("Cerrar sesión")
             }
         }
     }
@@ -223,8 +223,8 @@ fun ProfileContent(
     if (showLogoutDialog) {
         AlertDialog(
             onDismissRequest = { showLogoutDialog = false },
-            title = { Text("Cerrar sesion") },
-            text = { Text("Se borra la sesion guardada. Los tickets y usuarios de prueba siguen en el telefono.") },
+            title = { Text("Cerrar sesión") },
+            text = { Text("Se borra la sesión guardada. Los tickets y usuarios de prueba siguen en el teléfono.") },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -232,7 +232,7 @@ fun ProfileContent(
                         onLogout()
                     }
                 ) {
-                    Text("Cerrar sesion")
+                    Text("Cerrar sesión")
                 }
             },
             dismissButton = {

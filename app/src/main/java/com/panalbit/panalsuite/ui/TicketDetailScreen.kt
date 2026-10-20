@@ -164,7 +164,7 @@ fun TicketDetailContent(
                 EmptyState(
                     icon = Icons.Default.SearchOff,
                     title = "Ticket no disponible",
-                    message = state.errorMessage ?: "No se encontro el ticket solicitado",
+                    message = state.errorMessage ?: "No se encontró el ticket solicitado",
                     modifier = Modifier.padding(padding)
                 )
             }
@@ -229,7 +229,7 @@ fun TicketDetailContent(
             title = { Text("Cambiar estado") },
             text = {
                 Text(
-                    "El ticket ${ticket?.id.orEmpty()} pasara de ${ticket?.status?.label.orEmpty()} " +
+                    "El ticket ${ticket?.id.orEmpty()} pasará de ${ticket?.status?.label.orEmpty()} " +
                             "a ${pending.label}. El cambio queda registrado en la trazabilidad."
                 )
             },
@@ -256,7 +256,7 @@ fun TicketDetailContent(
                     OutlinedTextField(
                         value = state.evidenceDescription,
                         onValueChange = onEvidenceDescriptionChange,
-                        label = { Text("Descripcion") },
+                        label = { Text("Descripción") },
                         singleLine = false,
                         isError = state.showEvidenceErrors && state.evidenceError != null,
                         supportingText = {
@@ -264,7 +264,7 @@ fun TicketDetailContent(
                             if (state.showEvidenceErrors && error != null) {
                                 Text(error)
                             } else {
-                                Text("Que muestra la evidencia")
+                                Text("Qué muestra la evidencia")
                             }
                         },
                         modifier = Modifier.fillMaxWidth()
@@ -276,7 +276,7 @@ fun TicketDetailContent(
                             onCheckedChange = onEvidenceLocationToggle
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Adjuntar ubicacion")
+                        Text("Adjuntar ubicación")
                     }
 
                     AnimatedVisibility(visible = state.evidenceIncludeLocation) {
@@ -353,7 +353,7 @@ private fun TicketHeader(ticket: Ticket) {
 private fun DataSection(ticket: Ticket) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
 
-        SectionTitle("Informacion")
+        SectionTitle("Información")
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -380,7 +380,7 @@ private fun DataSection(ticket: Ticket) {
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             LabeledValue("Creado", fullDate(ticket.createdAt), modifier = Modifier.weight(1f))
-            LabeledValue("Ultima actualizacion", relativeTime(ticket.updatedAt), modifier = Modifier.weight(1f))
+            LabeledValue("Última actualización", relativeTime(ticket.updatedAt), modifier = Modifier.weight(1f))
         }
     }
 }
@@ -404,7 +404,7 @@ private fun StatusSection(
             )
         } else if (state.availableStatuses.isEmpty()) {
             Text(
-                text = "El ticket esta ${ticket.status.label.lowercase()}, ya no admite mas cambios.",
+                text = "El ticket está ${ticket.status.label.lowercase()}, ya no admite más cambios.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -672,7 +672,7 @@ private fun TicketDetailContentPreview() {
         description = "Al cerrar la venta la impresora responde con error de formato.",
         createdAt = now,
         updatedAt = now,
-        comments = listOf(Comment("K-1", "Diego Munoz", "Se solicito la configuracion al proveedor.", now)),
+        comments = listOf(Comment("K-1", "Diego Munoz", "Se solicitó la configuración al proveedor.", now)),
         evidences = listOf(Evidence("E-1", "Pantalla con el error", null, now)),
         history = listOf(ChangeEntry("H-1", "Estado", "Abierto", "En progreso", "Diego Munoz", now))
     )

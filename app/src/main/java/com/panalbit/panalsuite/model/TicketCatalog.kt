@@ -14,7 +14,7 @@ object TicketCatalog {
         "Acceso",
         "Requerimiento",
         "Administrativo",
-        "Capacitacion"
+        "Capacitación"
     )
 
     val categories = listOf(
@@ -23,7 +23,7 @@ object TicketCatalog {
         "Punto de venta",
         "Rendimiento",
         "Usuarios y permisos",
-        "Facturacion",
+        "Facturación",
         "Movilidad",
         "Producto",
         "Usuarios"

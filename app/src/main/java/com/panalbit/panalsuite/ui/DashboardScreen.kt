@@ -135,7 +135,7 @@ fun DashboardContent(
                     subtitle = "${state.stats.resolutionRate}% del total"
                 )
                 KpiCard(
-                    title = "CRITICOS",
+                    title = "CRÍTICOS",
                     value = state.stats.totalCritical.toString(),
                     icon = Icons.Default.Warning,
                     accent = MaterialTheme.colorScheme.error,
@@ -145,7 +145,7 @@ fun DashboardContent(
             }
 
             KpiCard(
-                title = "TIEMPO PROMEDIO DE RESOLUCION",
+                title = "TIEMPO PROMEDIO DE RESOLUCIÓN",
                 value = state.averageResolutionText,
                 icon = Icons.Default.Schedule,
                 accent = MaterialTheme.colorScheme.primary,

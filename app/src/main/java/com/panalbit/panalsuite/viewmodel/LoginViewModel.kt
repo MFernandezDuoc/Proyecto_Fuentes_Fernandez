@@ -79,7 +79,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 onFailure = { error ->
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
-                        errorMessage = error.message ?: "No se pudo iniciar sesion"
+                        errorMessage = error.message ?: "No se pudo iniciar sesión"
                     )
                 }
             )

@@ -20,14 +20,14 @@ data class LoginUiState(
 
     val usernameError: String?
         get() = if (username.trim().length < 3) {
-            "Ingresa tu nombre de acceso (minimo 3 caracteres)"
+            "Ingresa tu nombre de acceso (mínimo 3 caracteres)"
         } else {
             null
         }
 
     val passwordError: String?
         get() = if (password.length < 4) {
-            "La contrasena debe tener al menos 4 caracteres"
+            "La contraseña debe tener al menos 4 caracteres"
         } else {
             null
         }

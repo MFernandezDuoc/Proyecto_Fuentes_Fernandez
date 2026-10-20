@@ -14,7 +14,7 @@ data class ProfileUiState(
 ) {
 
     val fullName: String
-        get() = session?.fullName ?: "Sin sesion iniciada"
+        get() = session?.fullName ?: "Sin sesión iniciada"
 
     val roleLabel: String
         get() = session?.role?.label ?: "-"

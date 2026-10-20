@@ -195,7 +195,7 @@ fun AdminContent(
                             if (state.showErrors && error != null) {
                                 Text(error)
                             } else {
-                                Text("Como aparece en la trazabilidad")
+                                Text("Cómo aparece en la trazabilidad")
                             }
                         },
                         modifier = Modifier.fillMaxWidth()

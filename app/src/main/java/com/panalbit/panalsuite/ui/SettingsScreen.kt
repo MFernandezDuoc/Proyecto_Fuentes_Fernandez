@@ -227,7 +227,7 @@ fun SettingsScreenContent(
 
             // ---------- DATOS GUARDADOS ----------
             Text(
-                text = "Datos guardados en el telefono",
+                text = "Datos guardados en el teléfono",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold
             )
@@ -235,7 +235,7 @@ fun SettingsScreenContent(
             if (preferences.hasContactData || preferences.lastUsername.isNotBlank()) {
                 Text(text = "Nombre: ${preferences.contactName.ifBlank { "-" }}")
                 Text(text = "Correo: ${preferences.contactEmail.ifBlank { "-" }}")
-                Text(text = "Ultimo acceso: ${preferences.lastUsername.ifBlank { "-" }}")
+                Text(text = "Último acceso: ${preferences.lastUsername.ifBlank { "-" }}")
 
                 OutlinedButton(
                     onClick = { showClearDialog = true },
@@ -258,7 +258,7 @@ fun SettingsScreenContent(
             onDismissRequest = { showClearDialog = false },
             title = { Text("Borrar datos guardados") },
             text = {
-                Text("Se olvidaran el nombre, el correo y el ultimo acceso. La apariencia y la prioridad por defecto no se tocan.")
+                Text("Se olvidarán el nombre, el correo y el último acceso. La apariencia y la prioridad por defecto no se tocan.")
             },
             confirmButton = {
                 TextButton(

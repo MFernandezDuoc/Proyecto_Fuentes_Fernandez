@@ -66,7 +66,7 @@ data class InboxUiState(
     /** Mensaje que se muestra cuando el filtro no encuentra nada. */
     val emptyMessage: String
         get() = if (filter.activeCount > 0) {
-            "Ningun ticket coincide con el filtro aplicado"
+            "Ningún ticket coincide con el filtro aplicado"
         } else {
             "No tienes tickets asignados por ahora"
         }

@@ -58,8 +58,8 @@ object PanalApiService {
 
         return when {
             user == null -> failure("No existe un usuario con ese nombre")
-            password != DEMO_PASSWORD -> failure("La contrasena no es correcta")
-            !user.isActive -> failure("El usuario esta desactivado, contacta al administrador")
+            password != DEMO_PASSWORD -> failure("La contraseña no es correcta")
+            !user.isActive -> failure("El usuario está desactivado, contacta al administrador")
             else -> success(
                 user.toJson().put("token", "demo-token-${user.id}")
             )
@@ -326,10 +326,10 @@ object PanalApiService {
             createdAt = hoursAgo(8),
             updatedAt = hoursAgo(2),
             comments = listOf(
-                Comment("K-1", "Diego Munoz", "Se solicito al proveedor la configuracion de la impresora.", hoursAgo(4))
+                Comment("K-1", "Diego Munoz", "Se solicitó al proveedor la configuración de la impresora.", hoursAgo(4))
             ),
             evidences = listOf(
-                Evidence("E-1", "Pantalla con el error de impresion", null, hoursAgo(3))
+                Evidence("E-1", "Pantalla con el error de impresión", null, hoursAgo(3))
             ),
             history = listOf(
                 ChangeEntry("H-2", "Estado", "Abierto", "En progreso", "Diego Munoz", hoursAgo(2))
@@ -355,7 +355,7 @@ object PanalApiService {
         ),
         Ticket(
             id = "C-1004",
-            title = "Lentitud en modulo de cobranzas",
+            title = "Lentitud en módulo de cobranzas",
             type = "Software",
             category = "Rendimiento",
             priority = TicketPriority.HIGH,
@@ -364,7 +364,7 @@ object PanalApiService {
             requesterName = "Andres Leon",
             resolverTeam = "Soporte Aplicaciones",
             assignedTo = "Diego Munoz",
-            description = "El listado de cobranzas demora mas de 30 segundos en cargar durante la manana.",
+            description = "El listado de cobranzas demora más de 30 segundos en cargar durante la mañana.",
             createdAt = hoursAgo(30),
             updatedAt = hoursAgo(6),
             comments = listOf(
@@ -376,16 +376,16 @@ object PanalApiService {
         ),
         Ticket(
             id = "C-1005",
-            title = "Cambio de direccion de facturacion",
+            title = "Cambio de dirección de facturación",
             type = "Administrativo",
-            category = "Facturacion",
+            category = "Facturación",
             priority = TicketPriority.LOW,
             status = TicketStatus.RESOLVED,
             branch = "Casa matriz",
             requesterName = "Marcela Diaz",
-            resolverTeam = "Administracion",
+            resolverTeam = "Administración",
             assignedTo = "Paula Rivas",
-            description = "Actualizar la direccion de facturacion del cliente Legal Andes.",
+            description = "Actualizar la dirección de facturación del cliente Legal Andes.",
             createdAt = hoursAgo(50),
             updatedAt = hoursAgo(28),
             history = listOf(
@@ -412,7 +412,7 @@ object PanalApiService {
         ),
         Ticket(
             id = "C-1007",
-            title = "Farmacia requiere modulo de recetas",
+            title = "Farmacia requiere módulo de recetas",
             type = "Requerimiento",
             category = "Producto",
             priority = TicketPriority.MEDIUM,
@@ -421,7 +421,7 @@ object PanalApiService {
             requesterName = "Paula Rivas",
             resolverTeam = "Producto",
             assignedTo = null,
-            description = "El cliente pide evaluar un modulo de recetas con trazabilidad de entrega.",
+            description = "El cliente pide evaluar un módulo de recetas con trazabilidad de entrega.",
             createdAt = hoursAgo(72),
             updatedAt = hoursAgo(72),
             history = listOf(
@@ -470,7 +470,7 @@ object PanalApiService {
         Ticket(
             id = "C-1010",
             title = "Curso de uso de la app para proveedores",
-            type = "Capacitacion",
+            type = "Capacitación",
             category = "Usuarios",
             priority = TicketPriority.LOW,
             status = TicketStatus.CLOSED,
@@ -478,7 +478,7 @@ object PanalApiService {
             requesterName = "Marcela Diaz",
             resolverTeam = "Mesa de Ayuda",
             assignedTo = "Paula Rivas",
-            description = "Capacitacion de una hora para que los proveedores registren sus solicitudes.",
+            description = "Capacitación de una hora para que los proveedores registren sus solicitudes.",
             createdAt = hoursAgo(200),
             updatedAt = hoursAgo(150),
             history = listOf(

@@ -141,7 +141,7 @@ fun NewTicketContent(
             OutlinedTextField(
                 value = state.title,
                 onValueChange = onTitleChange,
-                label = { Text("Titulo de la solicitud") },
+                label = { Text("Título de la solicitud") },
                 singleLine = true,
                 isError = state.showErrors && state.titleError != null,
                 supportingText = {
@@ -181,7 +181,7 @@ fun NewTicketContent(
             )
 
             DropdownField(
-                label = "Categoria",
+                label = "Categoría",
                 value = state.category,
                 options = categories,
                 onOptionSelected = onCategoryChange,
@@ -189,7 +189,7 @@ fun NewTicketContent(
             )
 
             DropdownField(
-                label = "Sucursal o ubicacion",
+                label = "Sucursal o ubicación",
                 value = state.branch,
                 options = branches,
                 onOptionSelected = onBranchChange,

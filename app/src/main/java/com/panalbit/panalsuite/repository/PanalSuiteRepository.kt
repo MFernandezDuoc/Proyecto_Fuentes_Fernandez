@@ -34,7 +34,7 @@ object PanalSuiteRepository {
         val data = envelope.dataObject
 
         if (!envelope.success || data == null) {
-            return Result.failure(IllegalStateException(envelope.message ?: "No se pudo iniciar sesion"))
+            return Result.failure(IllegalStateException(envelope.message ?: "No se pudo iniciar sesión"))
         }
 
         val session = AuthSession(
