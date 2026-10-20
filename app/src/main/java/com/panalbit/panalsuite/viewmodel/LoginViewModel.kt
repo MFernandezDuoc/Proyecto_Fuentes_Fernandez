@@ -3,7 +3,7 @@ package com.panalbit.panalsuite.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.panalbit.panalsuite.model.User
-import com.panalbit.panalsuite.repository.FakePanalApi
+import com.panalbit.panalsuite.repository.PanalApiService
 import com.panalbit.panalsuite.repository.PanalSuiteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -81,15 +81,15 @@ class LoginViewModel : ViewModel() {
      * Cuentas de prueba que se muestran en la pantalla para poder entrar rapido.
      * Salen del mismo lugar que usa la API simulada, asi nunca se desincronizan.
      */
-    fun demoAccounts(): List<User> = FakePanalApi.demoUsers
+    fun demoAccounts(): List<User> = PanalApiService.demoUsers
 
-    fun demoPassword(): String = FakePanalApi.DEMO_PASSWORD
+    fun demoPassword(): String = PanalApiService.DEMO_PASSWORD
 
     /** Completa el formulario con una cuenta de prueba. */
     fun fillDemoAccount(user: User) {
         _uiState.value = _uiState.value.copy(
             username = user.username,
-            password = FakePanalApi.DEMO_PASSWORD,
+            password = PanalApiService.DEMO_PASSWORD,
             showErrors = false,
             errorMessage = null
         )

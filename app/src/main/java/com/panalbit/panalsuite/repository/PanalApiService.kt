@@ -12,18 +12,16 @@ import kotlinx.coroutines.delay
 import org.json.JSONObject
 
 /**
- * API simulada de PanalSuite.
+ * Punto de acceso a la API de PanalSuite.
  *
- * Imita los endpoints de una API REST pero funciona entera dentro del telefono:
- * no hay internet, no hay servidor y no se usa ninguna credencial real.
+ * En este MVP academico el servicio corre dentro del telefono: cada operacion
+ * simula la latencia de una llamada real y responde en el mismo formato JSON
+ * que usaria el backend REST. Gracias a eso, la capa de datos y las pantallas
+ * no tienen que cambiar cuando se conecte el servicio de verdad.
  *
- * Cada funcion hace lo mismo que haria una llamada de red:
- *  1. espera un momento (delay) para que la pantalla pueda mostrar el estado de carga,
- *  2. responde un texto JSON con la forma { "success": ..., "message": ..., "data": ... }
- *
- * El repositorio es el unico que habla con esta clase, y la pantalla nunca la conoce.
+ * Solo el repositorio usa esta clase: las pantallas nunca la conocen.
  */
-object FakePanalApi {
+object PanalApiService {
 
     /** Latencia simulada de la red, en milisegundos. */
     private const val NETWORK_DELAY_MS = 450L

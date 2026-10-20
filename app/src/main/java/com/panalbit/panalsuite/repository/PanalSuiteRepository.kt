@@ -14,7 +14,7 @@ import com.panalbit.panalsuite.model.UserRole
  * Repositorio unico de PanalSuite.
  *
  * Es el intermediario entre las pantallas y los datos:
- *  - le pide la informacion a FakePanalApi (la API simulada), y
+ *  - le pide la informacion a PanalApiService (la capa de acceso a la API), y
  *  - la guarda en LocalStore (el almacenamiento local del telefono).
  *
  * La estrategia es "primero lo local": si ya hay datos guardados se muestran de
@@ -30,7 +30,7 @@ object PanalSuiteRepository {
     // ------------------------------------------------------------------
 
     suspend fun login(username: String, password: String): Result<AuthSession> {
-        val envelope = FakePanalApi.login(username, password).asApiEnvelope()
+        val envelope = PanalApiService.login(username, password).asApiEnvelope()
         val data = envelope.dataObject
 
         if (!envelope.success || data == null) {
@@ -90,7 +90,7 @@ object PanalSuiteRepository {
         branch: String,
         description: String
     ): Result<Ticket> {
-        val envelope = FakePanalApi.createTicket(
+        val envelope = PanalApiService.createTicket(
             requesterName = requesterName,
             title = title,
             type = type,
@@ -115,7 +115,7 @@ object PanalSuiteRepository {
         newStatus: TicketStatus,
         changedBy: String
     ): Result<Ticket> {
-        val envelope = FakePanalApi.updateTicketStatus(ticketId, newStatus, changedBy).asApiEnvelope()
+        val envelope = PanalApiService.updateTicketStatus(ticketId, newStatus, changedBy).asApiEnvelope()
         if (!envelope.success) {
             return Result.failure(IllegalStateException(envelope.message ?: "No se pudo cambiar el estado"))
         }
@@ -127,7 +127,7 @@ object PanalSuiteRepository {
     }
 
     suspend fun addComment(ticketId: String, authorName: String, content: String): Result<Comment> {
-        val envelope = FakePanalApi.addComment(ticketId, authorName, content).asApiEnvelope()
+        val envelope = PanalApiService.addComment(ticketId, authorName, content).asApiEnvelope()
         val data = envelope.dataObject
 
         if (!envelope.success || data == null) {
@@ -143,7 +143,7 @@ object PanalSuiteRepository {
         description: String,
         location: String?
     ): Result<Evidence> {
-        val envelope = FakePanalApi.addEvidence(ticketId, description, location).asApiEnvelope()
+        val envelope = PanalApiService.addEvidence(ticketId, description, location).asApiEnvelope()
         val data = envelope.dataObject
 
         if (!envelope.success || data == null) {
@@ -164,7 +164,7 @@ object PanalSuiteRepository {
             if (cached.isNotEmpty()) return Result.success(cached)
         }
 
-        val envelope = FakePanalApi.fetchUsers().asApiEnvelope()
+        val envelope = PanalApiService.fetchUsers().asApiEnvelope()
         val array = envelope.dataArray
         if (!envelope.success || array == null) {
             return Result.failure(IllegalStateException(envelope.message ?: "No se pudo cargar la lista de usuarios"))
@@ -183,7 +183,7 @@ object PanalSuiteRepository {
         email: String,
         role: UserRole
     ): Result<User> {
-        val envelope = FakePanalApi.createUser(fullName, username, email, role).asApiEnvelope()
+        val envelope = PanalApiService.createUser(fullName, username, email, role).asApiEnvelope()
         val data = envelope.dataObject
 
         if (!envelope.success || data == null) {
@@ -195,7 +195,7 @@ object PanalSuiteRepository {
     }
 
     suspend fun setUserActive(userId: String, isActive: Boolean): Result<User> {
-        val envelope = FakePanalApi.setUserActive(userId, isActive).asApiEnvelope()
+        val envelope = PanalApiService.setUserActive(userId, isActive).asApiEnvelope()
         val data = envelope.dataObject
 
         if (!envelope.success || data == null) {
@@ -244,7 +244,7 @@ object PanalSuiteRepository {
     // ------------------------------------------------------------------
 
     private suspend fun fetchAndCacheTickets(): Result<List<Ticket>> {
-        val envelope = FakePanalApi.fetchTickets().asApiEnvelope()
+        val envelope = PanalApiService.fetchTickets().asApiEnvelope()
         val array = envelope.dataArray
 
         if (!envelope.success || array == null) {
