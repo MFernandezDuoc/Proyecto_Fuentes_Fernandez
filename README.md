@@ -43,24 +43,3 @@ productivos, con conectividad intermitente y persistencia local.
 |---|---|
 | **Martín Fuentes** | [MFuentesDuoc](https://github.com/MFuentesDuoc) |
 | **Martín Fernández** | [MFernandezDuoc](https://github.com/MFernandezDuoc) |
-
----
-
-## Para abrir el proyecto
-
-```
-Android Studio → File → Open → esta carpeta
-```
-
-Esperar el Gradle Sync y aprieta ▶. El **JDK del Gradle debe ser el 21**
-(*Settings → Build Tools → Gradle → Gradle JDK*).
-
-Desde la terminal:
-
-```powershell
-$env:JAVA_HOME="C:\Program Files\Java\jdk-21"
-.\gradlew.bat :app:assembleDebug
-```
-
-**Stack:** Kotlin · Jetpack Compose · Material 3 · Navigation Compose · StateFlow ·
-DataStore · SharedPreferences.
