@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.panalbit.panalsuite.model.AuthSession
 import com.panalbit.panalsuite.model.UserRole
+import com.panalbit.panalsuite.model.UserPreferences
 import com.panalbit.panalsuite.ui.components.LabeledValue
 import com.panalbit.panalsuite.ui.components.RoleChip
 import com.panalbit.panalsuite.ui.components.SectionTitle
@@ -57,6 +58,7 @@ import com.panalbit.panalsuite.viewmodel.ProfileViewModel
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel,
+    preferences: UserPreferences,
     onSettingsClick: () -> Unit,
     onLoggedOut: () -> Unit
 ) {
@@ -69,6 +71,7 @@ fun ProfileScreen(
 
     ProfileContent(
         state = state,
+        preferences = preferences,
         onSettingsClick = onSettingsClick,
         onLogout = {
             viewModel.logout()
@@ -81,6 +84,7 @@ fun ProfileScreen(
 @Composable
 fun ProfileContent(
     state: ProfileUiState,
+    preferences: UserPreferences,
     onSettingsClick: () -> Unit,
     onLogout: () -> Unit
 ) {
@@ -151,6 +155,13 @@ fun ProfileContent(
                     }
 
                     LabeledValue("Nombre de acceso", state.username)
+
+                    if (preferences.hasContactData) {
+                        LabeledValue(
+                            "Contacto guardado",
+                            "${preferences.contactName}\n${preferences.contactEmail}"
+                        )
+                    }
                 }
             }
 
@@ -249,6 +260,10 @@ private fun ProfileContentPreview() {
                 savedTickets = 10,
                 savedUsers = 5,
                 savedComments = 4
+            ),
+            preferences = UserPreferences(
+                contactName = "Camila Rojas",
+                contactEmail = "camila@panalbit.cl"
             ),
             onSettingsClick = {},
             onLogout = {}

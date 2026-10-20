@@ -13,6 +13,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -189,8 +190,10 @@ fun AppNavHost(
 
             // NODO 7: perfil
             composable(Routes.PROFILE) {
+                val preferences by settingsViewModel.preferences.collectAsState()
                 ProfileScreen(
                     viewModel = profileViewModel,
+                    preferences = preferences,
                     onSettingsClick = { navController.navigate(Routes.SETTINGS) },
                     onLoggedOut = onLogout
                 )
