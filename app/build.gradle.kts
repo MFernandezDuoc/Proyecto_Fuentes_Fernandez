@@ -65,6 +65,9 @@ dependencies {
 
     implementation(libs.androidx.navigation.compose)
 
+    // Almacenamiento local de las preferencias de la app
+    implementation(libs.androidx.datastore.preferences)
+
     debugImplementation(libs.androidx.ui.tooling)
 
     testImplementation(libs.junit)
