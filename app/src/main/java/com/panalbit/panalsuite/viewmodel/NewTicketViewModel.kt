@@ -1,19 +1,25 @@
 package com.panalbit.panalsuite.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.panalbit.panalsuite.model.TicketCatalog
 import com.panalbit.panalsuite.model.TicketPriority
 import com.panalbit.panalsuite.repository.PanalSuiteRepository
+import com.panalbit.panalsuite.repository.UserPreferencesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 /**
  * Formulario para registrar una solicitud nueva.
  */
-class NewTicketViewModel : ViewModel() {
+class NewTicketViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val preferencesRepository = UserPreferencesRepository(application)
 
     private val _uiState = MutableStateFlow(NewTicketUiState())
     val uiState: StateFlow<NewTicketUiState> = _uiState.asStateFlow()
@@ -21,6 +27,23 @@ class NewTicketViewModel : ViewModel() {
     private val types = TicketCatalog.types
     private val categories = TicketCatalog.categories
     private val branches = TicketCatalog.branches
+
+    /** La prioridad preferida, la que se eligio en Ajustes. */
+    private var defaultPriority = TicketPriority.MEDIUM
+
+    init {
+        // La prioridad por defecto viene guardada: si el usuario la cambia en
+        // Ajustes, el formulario parte con la nueva.
+        viewModelScope.launch {
+            preferencesRepository.userPreferences
+                .map { it.defaultPriority }
+                .distinctUntilChanged()
+                .collect { priority ->
+                    defaultPriority = priority
+                    _uiState.value = _uiState.value.copy(priority = priority)
+                }
+        }
+    }
 
     fun onTitleChange(value: String) {
         _uiState.value = _uiState.value.copy(title = value, errorMessage = null)
@@ -90,8 +113,9 @@ class NewTicketViewModel : ViewModel() {
         _uiState.value = _uiState.value.copy(createdTicketId = null)
     }
 
+    /** Limpia el formulario, dejando la prioridad que eligio el usuario en Ajustes. */
     fun reset() {
-        _uiState.value = NewTicketUiState()
+        _uiState.value = NewTicketUiState(priority = defaultPriority)
     }
 
     fun types(): List<String> = types
