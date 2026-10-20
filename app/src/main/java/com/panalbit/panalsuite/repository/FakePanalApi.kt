@@ -89,10 +89,10 @@ object FakePanalApi {
         delay(NETWORK_DELAY_MS)
 
         val now = System.currentTimeMillis()
-        ticketCounter += 1
+        val newTicketId = nextTicketId()
 
         val ticket = Ticket(
-            id = "C-$ticketCounter",
+            id = newTicketId,
             title = title.trim(),
             type = type,
             category = category,
@@ -261,6 +261,23 @@ object FakePanalApi {
 
     private fun failure(message: String): String =
         JSONObject().put("success", false).put("message", message).toString()
+
+    /**
+     * Genera un identificador de ticket que nunca repita uno existente.
+     *
+     * Mira el ID mas alto que ya hay en la lista y le suma uno. Asi funciona
+     * aunque se agreguen tickets de prueba en el futuro: el contador siempre
+     * queda despues del ultimo ID entregado.
+     */
+    private fun nextTicketId(): String {
+        val highestId = tickets
+            .mapNotNull { it.id.removePrefix("C-").toIntOrNull() }
+            .maxOrNull() ?: 1000
+
+        ticketCounter = maxOf(ticketCounter, highestId)
+        ticketCounter += 1
+        return "C-$ticketCounter"
+    }
 
     private fun nextId(prefix: String): String {
         return when (prefix) {
