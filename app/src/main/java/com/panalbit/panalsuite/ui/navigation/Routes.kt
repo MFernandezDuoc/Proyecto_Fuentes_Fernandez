@@ -14,6 +14,7 @@ object Routes {
     const val DASHBOARD = "dashboard"
     const val ADMIN = "admin"
     const val PROFILE = "profile"
+    const val SETTINGS = "settings"
 
     /** Arma la ruta del detalle con el identificador del ticket ya puesto. */
     fun ticketDetail(ticketId: String) = "ticket/$ticketId"

@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,6 +21,7 @@ import com.panalbit.panalsuite.viewmodel.InboxViewModel
 import com.panalbit.panalsuite.viewmodel.LoginViewModel
 import com.panalbit.panalsuite.viewmodel.NewTicketViewModel
 import com.panalbit.panalsuite.viewmodel.ProfileViewModel
+import com.panalbit.panalsuite.viewmodel.SettingsViewModel
 import com.panalbit.panalsuite.viewmodel.TicketDetailViewModel
 
 /**
@@ -38,13 +40,18 @@ class MainActivity : ComponentActivity() {
     private val dashboardViewModel: DashboardViewModel by viewModels()
     private val adminViewModel: AdminViewModel by viewModels()
     private val profileViewModel: ProfileViewModel by viewModels()
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         setContent {
-            PanalSuiteTheme {
+            // El tema depende de lo guardado: si el usuario cambia el modo de
+            // color en Ajustes, toda la app cambia al instante.
+            val preferences by settingsViewModel.preferences.collectAsState()
+
+            PanalSuiteTheme(themeMode = preferences.themeMode) {
 
                 // La sesion vive en el almacenamiento local, por eso al rotar el
                 // telefono se recupera sola y no hay que volver a iniciar sesion.
@@ -69,6 +76,7 @@ class MainActivity : ComponentActivity() {
                     dashboardViewModel = dashboardViewModel,
                     adminViewModel = adminViewModel,
                     profileViewModel = profileViewModel,
+                    settingsViewModel = settingsViewModel,
                     onLoginSuccess = { newSession ->
                         session = newSession
                         navController.navigate(Routes.INBOX) {

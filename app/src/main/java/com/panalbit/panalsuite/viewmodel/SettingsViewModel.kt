@@ -35,19 +35,12 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch { repository.setDefaultPriority(priority) }
     }
 
-    fun onContactNameChange(name: String) {
-        viewModelScope.launch { repository.saveContactData(name, currentEmail()) }
-    }
-
-    fun onContactEmailChange(email: String) {
-        viewModelScope.launch { repository.saveContactData(currentName(), email) }
+    /** Guarda los datos de contacto del usuario de una sola vez. */
+    fun onContactDataChange(name: String, email: String) {
+        viewModelScope.launch { repository.saveContactData(name, email) }
     }
 
     fun clearSavedData() {
         viewModelScope.launch { repository.clearSavedData() }
     }
-
-    private fun currentName(): String = preferences.value.contactName
-
-    private fun currentEmail(): String = preferences.value.contactEmail
 }

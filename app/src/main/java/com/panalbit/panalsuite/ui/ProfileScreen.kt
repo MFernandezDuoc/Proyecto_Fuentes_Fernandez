@@ -14,12 +14,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -55,6 +57,7 @@ import com.panalbit.panalsuite.viewmodel.ProfileViewModel
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel,
+    onSettingsClick: () -> Unit,
     onLoggedOut: () -> Unit
 ) {
 
@@ -66,6 +69,7 @@ fun ProfileScreen(
 
     ProfileContent(
         state = state,
+        onSettingsClick = onSettingsClick,
         onLogout = {
             viewModel.logout()
             onLoggedOut()
@@ -77,6 +81,7 @@ fun ProfileScreen(
 @Composable
 fun ProfileContent(
     state: ProfileUiState,
+    onSettingsClick: () -> Unit,
     onLogout: () -> Unit
 ) {
 
@@ -86,6 +91,11 @@ fun ProfileContent(
         topBar = {
             TopAppBar(
                 title = { Text("Mi perfil") },
+                actions = {
+                    IconButton(onClick = onSettingsClick) {
+                        Icon(Icons.Default.Settings, contentDescription = "Ajustes")
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -240,6 +250,7 @@ private fun ProfileContentPreview() {
                 savedUsers = 5,
                 savedComments = 4
             ),
+            onSettingsClick = {},
             onLogout = {}
         )
     }

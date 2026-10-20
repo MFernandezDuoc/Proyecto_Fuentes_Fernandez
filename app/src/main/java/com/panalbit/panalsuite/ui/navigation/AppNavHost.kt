@@ -31,6 +31,7 @@ import com.panalbit.panalsuite.ui.InboxScreen
 import com.panalbit.panalsuite.ui.LoginScreen
 import com.panalbit.panalsuite.ui.NewTicketScreen
 import com.panalbit.panalsuite.ui.ProfileScreen
+import com.panalbit.panalsuite.ui.SettingsScreen
 import com.panalbit.panalsuite.ui.TicketDetailScreen
 import com.panalbit.panalsuite.viewmodel.AdminViewModel
 import com.panalbit.panalsuite.viewmodel.DashboardViewModel
@@ -38,6 +39,7 @@ import com.panalbit.panalsuite.viewmodel.InboxViewModel
 import com.panalbit.panalsuite.viewmodel.LoginViewModel
 import com.panalbit.panalsuite.viewmodel.NewTicketViewModel
 import com.panalbit.panalsuite.viewmodel.ProfileViewModel
+import com.panalbit.panalsuite.viewmodel.SettingsViewModel
 import com.panalbit.panalsuite.viewmodel.TicketDetailViewModel
 
 /** Una opcion de la barra inferior. */
@@ -95,6 +97,7 @@ fun AppNavHost(
     dashboardViewModel: DashboardViewModel,
     adminViewModel: AdminViewModel,
     profileViewModel: ProfileViewModel,
+    settingsViewModel: SettingsViewModel,
     onLoginSuccess: (AuthSession) -> Unit,
     onLogout: () -> Unit
 ) {
@@ -188,7 +191,16 @@ fun AppNavHost(
             composable(Routes.PROFILE) {
                 ProfileScreen(
                     viewModel = profileViewModel,
+                    onSettingsClick = { navController.navigate(Routes.SETTINGS) },
                     onLoggedOut = onLogout
+                )
+            }
+
+            // NODO 8: ajustes
+            composable(Routes.SETTINGS) {
+                SettingsScreen(
+                    viewModel = settingsViewModel,
+                    onBack = { navController.popBackStack() }
                 )
             }
         }

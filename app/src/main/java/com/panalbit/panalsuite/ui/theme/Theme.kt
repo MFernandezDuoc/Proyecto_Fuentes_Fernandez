@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import com.panalbit.panalsuite.model.ThemeMode
 
 private val LightColors = lightColorScheme(
     primary = LightPrimary,
@@ -59,13 +60,22 @@ private val DarkColors = darkColorScheme(
 )
 
 /**
- * Tema de la aplicacion. Sigue el modo claro/oscuro del telefono.
+ * Tema de la aplicacion.
+ *
+ * El modo de color viene de la preferencia guardada: el usuario puede dejar que
+ * la app siga al telefono o forzar el tema claro u oscuro.
  */
 @Composable
 fun PanalSuiteTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    themeMode: ThemeMode = ThemeMode.SYSTEM,
     content: @Composable () -> Unit
 ) {
+    val darkTheme = when (themeMode) {
+        ThemeMode.SYSTEM -> isSystemInDarkTheme()
+        ThemeMode.LIGHT -> false
+        ThemeMode.DARK -> true
+    }
+
     MaterialTheme(
         colorScheme = if (darkTheme) DarkColors else LightColors,
         typography = PanalSuiteTypography,
