@@ -15,9 +15,6 @@ el teléfono: autenticación, consulta de bandejas y solicitudes, revisión de e
 ejecución de acciones autorizadas, registro de comentarios, incorporación de evidencias de
 prueba y recepción de notificaciones.
 
-**Restricciones del caso:** datos 100 % ficticios, sin credenciales ni acceso a sistemas
-productivos, con conectividad intermitente y persistencia local.
-
 ---
 
 ## En qué consiste la app
