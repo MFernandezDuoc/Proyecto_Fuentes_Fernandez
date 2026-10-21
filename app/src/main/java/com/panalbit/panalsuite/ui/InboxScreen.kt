@@ -1,5 +1,11 @@
 package com.panalbit.panalsuite.ui
 
+/**
+ * Bandeja de trabajo.
+ *
+ * Conoce al ViewModel y le pasa el estado a la parte visual.
+ */
+
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -55,9 +61,6 @@ import com.panalbit.panalsuite.ui.theme.PanalSuiteTheme
 import com.panalbit.panalsuite.viewmodel.InboxUiState
 import com.panalbit.panalsuite.viewmodel.InboxViewModel
 
-/**
- * Bandeja de trabajo. Conoce al ViewModel y le pasa el estado a la parte visual.
- */
 @Composable
 fun InboxScreen(
     viewModel: InboxViewModel,
@@ -67,8 +70,6 @@ fun InboxScreen(
 
     val state by viewModel.uiState.collectAsState()
 
-    // Al entrar a la pantalla se recarga lo guardado, para reflejar cambios de
-    // estado o tickets nuevos creados en otra pantalla.
     LaunchedEffect(Unit) {
         viewModel.load()
     }
@@ -260,7 +261,6 @@ fun InboxContent(
     }
 }
 
-/** Fila con los chips de estado y de prioridad. Se puede desplazar en horizontal. */
 @Composable
 private fun FilterRow(
     title: String,
@@ -318,7 +318,6 @@ private fun FilterRow(
     }
 }
 
-/** Numero grande con su etiqueta, para el resumen de arriba de la bandeja. */
 @Composable
 private fun MiniStat(
     label: String,

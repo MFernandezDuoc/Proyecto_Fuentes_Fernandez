@@ -1,11 +1,12 @@
 package com.panalbit.panalsuite.viewmodel
 
+/**
+ * Estado del módulo de administración de usuarios de prueba.
+ */
+
 import com.panalbit.panalsuite.model.User
 import com.panalbit.panalsuite.model.UserRole
 
-/**
- * Estado del modulo de administracion de usuarios de prueba.
- */
 data class AdminUiState(
     val users: List<User> = emptyList(),
     val isLoading: Boolean = false,
@@ -13,7 +14,6 @@ data class AdminUiState(
     val errorMessage: String? = null,
     val feedbackMessage: String? = null,
 
-    // Formulario de usuario nuevo
     val showForm: Boolean = false,
     val fullName: String = "",
     val username: String = "",

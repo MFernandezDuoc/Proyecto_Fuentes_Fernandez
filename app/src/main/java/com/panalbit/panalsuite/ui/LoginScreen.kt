@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui
 
+/**
+ * Pantalla de acceso.
+ *
+ * La función que conoce al ViewModel le pide el estado, se lo pasa a la parte
+ * visual y avisa hacia arriba cuando la sesión quedó iniciada.
+ */
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,11 +57,6 @@ import com.panalbit.panalsuite.ui.theme.PanalSuiteTheme
 import com.panalbit.panalsuite.viewmodel.LoginUiState
 import com.panalbit.panalsuite.viewmodel.LoginViewModel
 
-/**
- * Pantalla de acceso. Esta funcion es la unica que conoce al ViewModel:
- * le pide el estado, se lo pasa a la parte visual y avisa hacia arriba cuando
- * la sesion quedo iniciada.
- */
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel,
@@ -63,8 +65,6 @@ fun LoginScreen(
 
     val state by viewModel.uiState.collectAsState()
 
-    // Cuando el ViewModel consigue la sesion, la pantalla avisa al nivel de arriba
-    // y limpia la marca para no volver a navegar al rotar el telefono.
     LaunchedEffect(state.session) {
         val session = state.session
         if (session != null) {
@@ -84,10 +84,6 @@ fun LoginScreen(
     )
 }
 
-/**
- * Parte visual. No conoce al ViewModel: recibe el estado y avisa de los cambios
- * por medio de funciones. Gracias a eso se puede previsualizar en el editor.
- */
 @Composable
 fun LoginContent(
     state: LoginUiState,
@@ -233,10 +229,6 @@ private fun LoginHeader() {
     }
 }
 
-/**
- * Atajos de acceso. Tocar una tarjeta completa el formulario con esa cuenta,
- * asi la revision se puede hacer sin escribir nada.
- */
 @Composable
 private fun DemoAccountsSection(
     accounts: List<User>,

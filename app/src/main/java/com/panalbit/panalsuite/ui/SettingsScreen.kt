@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui
 
+/**
+ * Pantalla de Ajustes.
+ *
+ * Acá se elige la forma en que se ve la aplicación y se guardan los datos de
+ * contacto del usuario, para que la app los recuerde entre una ejecución y otra.
+ */
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -53,12 +60,6 @@ import com.panalbit.panalsuite.ui.theme.PanalSuiteTheme
 import com.panalbit.panalsuite.viewmodel.SettingsViewModel
 import kotlinx.coroutines.launch
 
-/**
- * Pantalla de Ajustes.
- *
- * Acui la forma en que se ve la aplicacion y guarda los datos de contacto del
- * usuario, para que la app los recuerde entre una ejecucion y otra.
- */
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel,
@@ -77,10 +78,6 @@ fun SettingsScreen(
     )
 }
 
-/**
- * Parte visual. No conoce al ViewModel: recibe el estado y avisa de los cambios.
- * Gracias a eso se puede previsualizar en el editor.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreenContent(
@@ -98,8 +95,6 @@ fun SettingsScreenContent(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
-    // Los campos de texto se editan en memoria y se guardan con el boton:
-    // asi el cursor no salta mientras se escribe.
     var contactName by remember(preferences.contactName) { mutableStateOf(preferences.contactName) }
     var contactEmail by remember(preferences.contactEmail) { mutableStateOf(preferences.contactEmail) }
 
@@ -137,7 +132,6 @@ fun SettingsScreenContent(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
-            // ---------- APARIENCIA ----------
             Text(
                 text = "Apariencia",
                 style = MaterialTheme.typography.titleMedium,
@@ -161,7 +155,6 @@ fun SettingsScreenContent(
 
             HorizontalDivider()
 
-            // ---------- PRIORIDAD POR DEFECTO ----------
             Text(
                 text = "Prioridad por defecto",
                 style = MaterialTheme.typography.titleMedium,
@@ -187,7 +180,6 @@ fun SettingsScreenContent(
 
             HorizontalDivider()
 
-            // ---------- DATOS DE CONTACTO ----------
             Text(
                 text = "Mis datos de contacto",
                 style = MaterialTheme.typography.titleMedium,
@@ -225,7 +217,6 @@ fun SettingsScreenContent(
 
             HorizontalDivider()
 
-            // ---------- DATOS GUARDADOS ----------
             Text(
                 text = "Datos guardados en el teléfono",
                 style = MaterialTheme.typography.titleMedium,

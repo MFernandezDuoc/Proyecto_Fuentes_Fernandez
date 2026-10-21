@@ -1,18 +1,19 @@
 package com.panalbit.panalsuite.viewmodel
 
+/**
+ * Estado de la bandeja de trabajo.
+ *
+ * visibleTickets es una propiedad calculada: aplica el filtro de la interfaz y el
+ * filtro por rol. Como se recalcula sola, no hay forma de que la pantalla muestre
+ * una lista que ya no corresponde al filtro elegido.
+ */
+
 import com.panalbit.panalsuite.model.Ticket
 import com.panalbit.panalsuite.model.TicketFilter
 import com.panalbit.panalsuite.model.TicketPriority
 import com.panalbit.panalsuite.model.TicketStatus
 import com.panalbit.panalsuite.model.UserRole
 
-/**
- * Estado de la bandeja de trabajo.
- *
- * `visibleTickets` es una propiedad calculada: aplica el filtro de la interfaz
- * y el filtro por rol. Como se recalcula sola, no hay forma de que la pantalla
- * muestre una lista que ya no corresponde al filtro elegido.
- */
 data class InboxUiState(
     val tickets: List<Ticket> = emptyList(),
     val filter: TicketFilter = TicketFilter(),
@@ -22,7 +23,6 @@ data class InboxUiState(
     val errorMessage: String? = null
 ) {
 
-    /** Primero se limita por rol: cada uno ve lo que le corresponde. */
     private val ticketsForRole: List<Ticket>
         get() = when (currentUserRole) {
             UserRole.SOLICITANTE -> tickets.filter { it.requesterName == currentUserName }
@@ -30,7 +30,6 @@ data class InboxUiState(
             UserRole.SUPERVISOR, UserRole.GERENCIA, UserRole.ADMINISTRADOR -> tickets
         }
 
-    /** Despues se aplica el filtro de la interfaz: estado, prioridad y texto. */
     val visibleTickets: List<Ticket>
         get() {
             val query = filter.searchQuery.trim().lowercase()
@@ -63,7 +62,6 @@ data class InboxUiState(
             it.status == TicketStatus.IN_PROGRESS || it.status == TicketStatus.PENDING
         }
 
-    /** Mensaje que se muestra cuando el filtro no encuentra nada. */
     val emptyMessage: String
         get() = if (filter.activeCount > 0) {
             "Ningún ticket coincide con el filtro aplicado"

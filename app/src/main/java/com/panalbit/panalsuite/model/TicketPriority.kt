@@ -1,8 +1,9 @@
 package com.panalbit.panalsuite.model
 
 /**
- * Prioridad de un ticket.
+ * Las cuatro prioridades de un ticket.
  */
+
 enum class TicketPriority(val label: String) {
     LOW("Baja"),
     MEDIUM("Media"),

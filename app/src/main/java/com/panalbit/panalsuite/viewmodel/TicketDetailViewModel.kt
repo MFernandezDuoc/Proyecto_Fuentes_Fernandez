@@ -1,5 +1,9 @@
 package com.panalbit.panalsuite.viewmodel
 
+/**
+ * Detalle de un ticket: sus datos, el cambio de estado, los comentarios y las evidencias.
+ */
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.panalbit.panalsuite.model.TicketStatus
@@ -10,9 +14,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-/**
- * Detalle de un ticket: sus datos, el cambio de estado, los comentarios y las evidencias.
- */
 class TicketDetailViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(TicketDetailUiState())
@@ -20,10 +21,6 @@ class TicketDetailViewModel : ViewModel() {
 
     private var currentTicketId: String? = null
 
-    /**
-     * Abre un ticket. Se llama desde la navegacion, no desde el constructor,
-     * porque el ViewModel se crea una sola vez junto con la Activity.
-     */
     fun openTicket(ticketId: String) {
         currentTicketId = ticketId
         val session = PanalSuiteRepository.currentSession()
@@ -41,7 +38,6 @@ class TicketDetailViewModel : ViewModel() {
         _uiState.value = _uiState.value.copy(isLoading = true, errorMessage = null)
 
         viewModelScope.launch {
-            // Primero se refresca la bandeja guardada y despues se busca el ticket.
             val result = PanalSuiteRepository.loadTickets()
 
             _uiState.value = result.fold(
@@ -62,8 +58,6 @@ class TicketDetailViewModel : ViewModel() {
             )
         }
     }
-
-    // ---------------- Comentario ----------------
 
     fun onCommentChange(value: String) {
         _uiState.value = _uiState.value.copy(commentText = value)
@@ -104,8 +98,6 @@ class TicketDetailViewModel : ViewModel() {
         }
     }
 
-    // ---------------- Cambio de estado ----------------
-
     fun onStatusSelected(status: TicketStatus) {
         _uiState.value = _uiState.value.copy(pendingStatus = status)
     }
@@ -139,8 +131,6 @@ class TicketDetailViewModel : ViewModel() {
             )
         }
     }
-
-    // ---------------- Evidencia ----------------
 
     fun showEvidenceDialog() {
         _uiState.value = _uiState.value.copy(
@@ -195,8 +185,6 @@ class TicketDetailViewModel : ViewModel() {
             )
         }
     }
-
-    // ---------------- Mensajes ----------------
 
     fun onFeedbackShown() {
         _uiState.value = _uiState.value.copy(feedbackMessage = null)

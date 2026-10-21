@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui
 
+/**
+ * Indicadores de seguimiento.
+ *
+ * Se recalculan cada vez que se entra a la pantalla, a partir de los tickets
+ * guardados.
+ */
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,10 +49,6 @@ import com.panalbit.panalsuite.ui.theme.PanalSuiteTheme
 import com.panalbit.panalsuite.viewmodel.DashboardUiState
 import com.panalbit.panalsuite.viewmodel.DashboardViewModel
 
-/**
- * Indicadores de seguimiento. Se recalculan cada vez que se entra a la pantalla,
- * a partir de los tickets guardados.
- */
 @Composable
 fun DashboardScreen(viewModel: DashboardViewModel) {
 

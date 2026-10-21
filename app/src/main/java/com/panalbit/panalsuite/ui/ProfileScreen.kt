@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui
 
+/**
+ * Perfil del usuario conectado.
+ *
+ * Muestra también cuánto hay guardado en el almacenamiento local del teléfono,
+ * para comprobar que la persistencia funciona.
+ */
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -51,10 +58,6 @@ import com.panalbit.panalsuite.ui.theme.PanalSuiteTheme
 import com.panalbit.panalsuite.viewmodel.ProfileUiState
 import com.panalbit.panalsuite.viewmodel.ProfileViewModel
 
-/**
- * Perfil del usuario conectado. Muestra tambien cuanto hay guardado en el
- * almacenamiento local del telefono, para comprobar que la persistencia funciona.
- */
 @Composable
 fun ProfileScreen(
     viewModel: ProfileViewModel,

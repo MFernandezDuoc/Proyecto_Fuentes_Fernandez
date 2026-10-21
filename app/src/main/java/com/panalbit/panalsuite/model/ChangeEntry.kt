@@ -1,8 +1,10 @@
 package com.panalbit.panalsuite.model
 
 /**
- * Una linea de la trazabilidad: que cambio, de que valor a que valor y quien lo hizo.
+ * Una línea de la trazabilidad: qué cambió, de qué valor a qué valor
+ * y quién lo hizo.
  */
+
 data class ChangeEntry(
     val id: String,
     val field: String,

@@ -1,5 +1,11 @@
 package com.panalbit.panalsuite.ui.components
 
+/**
+ * Las piezas de los indicadores.
+ *
+ * La tarjeta de una cifra y la barra de carga por equipo.
+ */
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,10 +26,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
-/**
- * Tarjeta de indicador: un numero grande con su titulo y su icono.
- * El color de acento se recibe por parametro para poder darle un tono distinto a cada uno.
- */
 @Composable
 fun KpiCard(
     title: String,
@@ -80,10 +82,6 @@ fun KpiCard(
     }
 }
 
-/**
- * Barra horizontal de carga por equipo. El ancho es proporcional al equipo
- * con mas tickets, no al total, para que la diferencia se note.
- */
 @Composable
 fun WorkloadBar(
     team: String,

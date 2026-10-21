@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui.theme
 
+/**
+ * El tema de la aplicación.
+ *
+ * El modo de color viene de la preferencia guardada: el usuario puede dejar que
+ * la app siga al teléfono o forzar el tema claro u oscuro.
+ */
+
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
@@ -59,12 +66,6 @@ private val DarkColors = darkColorScheme(
     onErrorContainer = DarkOnErrorContainer
 )
 
-/**
- * Tema de la aplicacion.
- *
- * El modo de color viene de la preferencia guardada: el usuario puede dejar que
- * la app siga al telefono o forzar el tema claro u oscuro.
- */
 @Composable
 fun PanalSuiteTheme(
     themeMode: ThemeMode = ThemeMode.SYSTEM,

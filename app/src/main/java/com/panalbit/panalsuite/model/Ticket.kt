@@ -1,8 +1,12 @@
 package com.panalbit.panalsuite.model
 
 /**
- * Ticket o solicitud. Es el dato central de la aplicacion.
+ * Ticket o solicitud.
+ *
+ * Es el dato central de la aplicación: además de sus datos, lleva anidados los
+ * comentarios, las evidencias y el historial de cambios.
  */
+
 data class Ticket(
     val id: String,
     val title: String,
@@ -21,11 +25,9 @@ data class Ticket(
     val evidences: List<Evidence> = emptyList(),
     val history: List<ChangeEntry> = emptyList()
 ) {
-    /** El ticket esta cerrado cuando ya no admite mas cambios de estado. */
     val isClosed: Boolean
         get() = status == TicketStatus.CLOSED || status == TicketStatus.CANCELLED
 
-    /** Estados validos a los que puede pasar este ticket. */
     val allowedNextStatuses: List<TicketStatus>
         get() = when (status) {
             TicketStatus.OPEN -> listOf(TicketStatus.IN_PROGRESS, TicketStatus.CANCELLED)

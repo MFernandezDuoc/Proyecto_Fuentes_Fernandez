@@ -1,11 +1,12 @@
 package com.panalbit.panalsuite.ui.navigation
 
 /**
- * Rutas de la aplicacion.
+ * Las rutas de la aplicación.
  *
- * Se declaran como constantes para no escribir textos sueltos por el codigo:
- * un error de tipeo en "bandeja" compilaria y fallaria recien al navegar.
+ * Se declaran como constantes para no escribir textos sueltos por el código: un
+ * error de tipeo en "bandeja" compilaría y fallaría recién al navegar.
  */
+
 object Routes {
     const val LOGIN = "login"
     const val INBOX = "inbox"
@@ -16,6 +17,5 @@ object Routes {
     const val PROFILE = "profile"
     const val SETTINGS = "settings"
 
-    /** Arma la ruta del detalle con el identificador del ticket ya puesto. */
     fun ticketDetail(ticketId: String) = "ticket/$ticketId"
 }

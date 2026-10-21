@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.viewmodel
 
+/**
+ * Indicadores de seguimiento para supervisor, gerencia y administrador.
+ *
+ * Los números no se guardan: se calculan con repository.dashboardStats() cada vez
+ * que se cargan los tickets, así nunca quedan desfasados.
+ */
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.panalbit.panalsuite.repository.PanalSuiteRepository
@@ -8,12 +15,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-/**
- * Indicadores de seguimiento para supervisor, gerencia y administrador.
- *
- * Los numeros no se guardan: se calculan con repository.dashboardStats() cada vez
- * que se cargan los tickets, asi nunca quedan desfasados.
- */
 class DashboardViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(DashboardUiState())

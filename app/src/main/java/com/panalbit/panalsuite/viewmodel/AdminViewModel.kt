@@ -1,5 +1,11 @@
 package com.panalbit.panalsuite.viewmodel
 
+/**
+ * Administración de los usuarios de prueba: listar, crear y activar o desactivar.
+ *
+ * Esta sección es solo para el rol Administrador.
+ */
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.panalbit.panalsuite.model.User
@@ -10,10 +16,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-/**
- * Administracion de los usuarios de prueba: listar, crear y activar o desactivar.
- * Esta seccion es solo para el rol Administrador.
- */
 class AdminViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(AdminUiState())
@@ -41,8 +43,6 @@ class AdminViewModel : ViewModel() {
         load(forceRefresh = true)
     }
 
-    // ---------------- Formulario ----------------
-
     fun showForm() {
         _uiState.value = _uiState.value.copy(
             showForm = true,
@@ -63,7 +63,6 @@ class AdminViewModel : ViewModel() {
     }
 
     fun onUsernameChange(value: String) {
-        // El nombre de acceso no lleva espacios: se limpian al escribir.
         _uiState.value = _uiState.value.copy(username = value.filter { !it.isWhitespace() })
     }
 

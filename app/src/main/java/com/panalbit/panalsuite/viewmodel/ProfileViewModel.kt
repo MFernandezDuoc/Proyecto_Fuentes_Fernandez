@@ -1,17 +1,18 @@
 package com.panalbit.panalsuite.viewmodel
 
+/**
+ * Datos de la sesión activa y de lo que hay guardado en el teléfono.
+ *
+ * Todo sale del almacenamiento local, por eso no es una función suspend: leer
+ * SharedPreferences es inmediato.
+ */
+
 import androidx.lifecycle.ViewModel
 import com.panalbit.panalsuite.repository.PanalSuiteRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-/**
- * Datos de la sesion activa y de lo que hay guardado en el telefono.
- *
- * Todo sale del almacenamiento local, por eso no es una funcion suspend:
- * leer SharedPreferences es inmediato.
- */
 class ProfileViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileUiState())

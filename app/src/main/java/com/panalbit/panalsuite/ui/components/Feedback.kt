@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui.components
 
+/**
+ * Los mensajes de estado que se repiten en todas las pantallas.
+ *
+ * La espera, el aviso de error, la pantalla vacía, el título de sección y el
+ * valor con su etiqueta.
+ */
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -32,7 +39,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
-/** Pantalla de espera mientras se consultan los datos. */
 @Composable
 fun LoadingState(
     message: String = "Consultando datos...",
@@ -56,10 +62,6 @@ fun LoadingState(
     }
 }
 
-/**
- * Aviso de error con acciones. Aparece y desaparece con una animacion, para que
- * el contenido de abajo no salte de golpe.
- */
 @Composable
 fun ErrorBanner(
     message: String,
@@ -118,7 +120,6 @@ fun ErrorBanner(
     }
 }
 
-/** Lo que se ve cuando la lista no tiene nada que mostrar. */
 @Composable
 fun EmptyState(
     icon: ImageVector,
@@ -157,7 +158,6 @@ fun EmptyState(
     }
 }
 
-/** Titulo de seccion dentro de una pantalla. */
 @Composable
 fun SectionTitle(text: String, modifier: Modifier = Modifier) {
     Row(
@@ -172,7 +172,6 @@ fun SectionTitle(text: String, modifier: Modifier = Modifier) {
     }
 }
 
-/** Fila de "etiqueta: valor" para el detalle del ticket. */
 @Composable
 fun LabeledValue(
     label: String,
@@ -192,7 +191,6 @@ fun LabeledValue(
     }
 }
 
-/** Boton pequeno con icono para refrescar, reutilizado en varias pantallas. */
 @Composable
 fun RefreshButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
     IconButton(onClick = onClick, modifier = modifier) {

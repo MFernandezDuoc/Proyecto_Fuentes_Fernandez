@@ -1,5 +1,14 @@
 package com.panalbit.panalsuite
 
+/**
+ * Punto de entrada de la aplicación.
+ *
+ * Es la única Activity: en Compose todas las pantallas son funciones, no Activities.
+ * Crea los ViewModel una sola vez, así el estado sobrevive al giro del teléfono, y
+ * entrega el control a Compose. Agregar pantallas nuevas no toca este archivo:
+ * se agregan nodos al grafo de navegación.
+ */
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,13 +33,6 @@ import com.panalbit.panalsuite.viewmodel.ProfileViewModel
 import com.panalbit.panalsuite.viewmodel.SettingsViewModel
 import com.panalbit.panalsuite.viewmodel.TicketDetailViewModel
 
-/**
- * Unica Activity de la aplicacion.
- *
- * Crea los ViewModels una sola vez, asi el estado sobrevive al giro del telefono,
- * y entrega el control a Compose. Agregar pantallas nuevas no toca este archivo:
- * se agregan nodos al grafo de navegacion.
- */
 class MainActivity : ComponentActivity() {
 
     private val loginViewModel: LoginViewModel by viewModels()
@@ -47,18 +49,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            // El tema depende de lo guardado: si el usuario cambia el modo de
-            // color en Ajustes, toda la app cambia al instante.
             val preferences by settingsViewModel.preferences.collectAsState()
 
             PanalSuiteTheme(themeMode = preferences.themeMode) {
 
-                // La sesion vive en el almacenamiento local, por eso al rotar el
-                // telefono se recupera sola y no hay que volver a iniciar sesion.
                 var session by remember { mutableStateOf(PanalSuiteRepository.currentSession()) }
 
-                // Se decide una sola vez por composicion, para que el grafo no se
-                // reinicie cada vez que cambia la sesion.
                 val startDestination = remember {
                     if (PanalSuiteRepository.currentSession() == null) Routes.LOGIN else Routes.INBOX
                 }
@@ -80,7 +76,6 @@ class MainActivity : ComponentActivity() {
                     onLoginSuccess = { newSession ->
                         session = newSession
                         navController.navigate(Routes.INBOX) {
-                            // El acceso sale de la pila: Atras no devuelve al login.
                             popUpTo(Routes.LOGIN) { inclusive = true }
                         }
                     },

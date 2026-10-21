@@ -1,5 +1,16 @@
 package com.panalbit.panalsuite.repository
 
+/**
+ * Punto de acceso a la API de PanalSuite.
+ *
+ * En este MVP académico el servicio corre dentro del teléfono: cada operación
+ * simula la latencia de una llamada real y responde en el mismo formato JSON
+ * que usaría el backend REST. Gracias a eso, la capa de datos y las pantallas
+ * no tienen que cambiar cuando se conecte el servicio de verdad.
+ *
+ * Solo el repositorio usa esta clase: las pantallas nunca la conocen.
+ */
+
 import com.panalbit.panalsuite.model.ChangeEntry
 import com.panalbit.panalsuite.model.Comment
 import com.panalbit.panalsuite.model.Evidence
@@ -11,22 +22,10 @@ import com.panalbit.panalsuite.model.UserRole
 import kotlinx.coroutines.delay
 import org.json.JSONObject
 
-/**
- * Punto de acceso a la API de PanalSuite.
- *
- * En este MVP academico el servicio corre dentro del telefono: cada operacion
- * simula la latencia de una llamada real y responde en el mismo formato JSON
- * que usaria el backend REST. Gracias a eso, la capa de datos y las pantallas
- * no tienen que cambiar cuando se conecte el servicio de verdad.
- *
- * Solo el repositorio usa esta clase: las pantallas nunca la conocen.
- */
 object PanalApiService {
 
-    /** Latencia simulada de la red, en milisegundos. */
     private const val NETWORK_DELAY_MS = 450L
 
-    /** Contrasena unica de todos los usuarios de prueba. */
     const val DEMO_PASSWORD = "1234"
 
     private var ticketCounter = 1000
@@ -34,7 +33,6 @@ object PanalApiService {
     private var evidenceCounter = 0
     private var userCounter = 10
 
-    /** Lista de usuarios de prueba, uno por cada rol del sistema. */
     val demoUsers: List<User> = listOf(
         User("U-01", "solicitante", "Carolina Soto", "carolina.soto@panalbit.cl", UserRole.SOLICITANTE),
         User("U-02", "resolutor", "Diego Munoz", "diego.munoz@panalbit.cl", UserRole.RESOLUTOR),
@@ -46,10 +44,6 @@ object PanalApiService {
     private val users = demoUsers.toMutableList()
 
     private val tickets = seedTickets().toMutableList()
-
-    // ------------------------------------------------------------------
-    // Autenticacion
-    // ------------------------------------------------------------------
 
     suspend fun login(username: String, password: String): String {
         delay(NETWORK_DELAY_MS)
@@ -65,10 +59,6 @@ object PanalApiService {
             )
         }
     }
-
-    // ------------------------------------------------------------------
-    // Tickets
-    // ------------------------------------------------------------------
 
     suspend fun fetchTickets(): String {
         delay(NETWORK_DELAY_MS)
@@ -199,10 +189,6 @@ object PanalApiService {
         return success(evidence.toJson())
     }
 
-    // ------------------------------------------------------------------
-    // Usuarios
-    // ------------------------------------------------------------------
-
     suspend fun fetchUsers(): String {
         delay(NETWORK_DELAY_MS)
         return successArray(users.map { it.toJson() })
@@ -244,10 +230,6 @@ object PanalApiService {
         return success(updated.toJson())
     }
 
-    // ------------------------------------------------------------------
-    // Respuestas
-    // ------------------------------------------------------------------
-
     private fun success(data: JSONObject): String =
         JSONObject().put("success", true).put("data", data).toString()
 
@@ -260,13 +242,6 @@ object PanalApiService {
     private fun failure(message: String): String =
         JSONObject().put("success", false).put("message", message).toString()
 
-    /**
-     * Genera un identificador de ticket que nunca repita uno existente.
-     *
-     * Mira el ID mas alto que ya hay en la lista y le suma uno. Asi funciona
-     * aunque se agreguen tickets de prueba en el futuro: el contador siempre
-     * queda despues del ultimo ID entregado.
-     */
     private fun nextTicketId(): String {
         val highestId = tickets
             .mapNotNull { it.id.removePrefix("C-").toIntOrNull() }
@@ -284,10 +259,6 @@ object PanalApiService {
             else -> "H-${++commentCounter}${evidenceCounter}"
         }
     }
-
-    // ------------------------------------------------------------------
-    // Datos de prueba (ficticios)
-    // ------------------------------------------------------------------
 
     private fun hoursAgo(hours: Long): Long =
         System.currentTimeMillis() - hours * 60L * 60L * 1000L

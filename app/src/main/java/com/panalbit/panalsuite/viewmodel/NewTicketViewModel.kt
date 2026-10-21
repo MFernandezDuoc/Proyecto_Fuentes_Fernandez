@@ -1,5 +1,9 @@
 package com.panalbit.panalsuite.viewmodel
 
+/**
+ * Formulario para registrar una solicitud nueva.
+ */
+
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +18,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-/**
- * Formulario para registrar una solicitud nueva.
- */
 class NewTicketViewModel(application: Application) : AndroidViewModel(application) {
 
     private val preferencesRepository = UserPreferencesRepository(application)
@@ -28,12 +29,9 @@ class NewTicketViewModel(application: Application) : AndroidViewModel(applicatio
     private val categories = TicketCatalog.categories
     private val branches = TicketCatalog.branches
 
-    /** La prioridad preferida, la que se eligio en Ajustes. */
     private var defaultPriority = TicketPriority.MEDIUM
 
     init {
-        // La prioridad por defecto viene guardada: si el usuario la cambia en
-        // Ajustes, el formulario parte con la nueva.
         viewModelScope.launch {
             preferencesRepository.userPreferences
                 .map { it.defaultPriority }
@@ -69,7 +67,6 @@ class NewTicketViewModel(application: Application) : AndroidViewModel(applicatio
         _uiState.value = _uiState.value.copy(branch = value)
     }
 
-    /** Valida y guarda. El resultado queda en `createdTicketId` y la pantalla navega. */
     fun submit() {
         val state = _uiState.value
 
@@ -108,12 +105,10 @@ class NewTicketViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    /** La pantalla avisa que ya navego, para no repetir la navegacion. */
     fun onCreatedHandled() {
         _uiState.value = _uiState.value.copy(createdTicketId = null)
     }
 
-    /** Limpia el formulario, dejando la prioridad que eligio el usuario en Ajustes. */
     fun reset() {
         _uiState.value = NewTicketUiState(priority = defaultPriority)
     }

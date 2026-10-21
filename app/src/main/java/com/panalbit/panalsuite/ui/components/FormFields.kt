@@ -1,5 +1,13 @@
 package com.panalbit.panalsuite.ui.components
 
+/**
+ * Los controles de los formularios.
+ *
+ * El campo de selección se armó con un botón y un menú en vez del componente
+ * experimental de Material 3, para que el proyecto no dependa de APIs que pueden
+ * cambiar de versión.
+ */
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,12 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
-/**
- * Campo de seleccion simple.
- *
- * Se armo con un boton y un menu en vez del componente experimental de Material 3,
- * asi el proyecto compila sin depender de APIs que pueden cambiar de version.
- */
 @Composable
 fun DropdownField(
     label: String,

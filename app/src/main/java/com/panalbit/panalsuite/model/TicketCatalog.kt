@@ -1,11 +1,12 @@
 package com.panalbit.panalsuite.model
 
 /**
- * Valores que se ofrecen en los formularios.
+ * Los valores que se ofrecen en los formularios.
  *
- * Estan en un solo lugar para que el formulario de nueva solicitud y el filtro
+ * Están en un solo lugar para que el formulario de nueva solicitud y los filtros
  * de la bandeja usen exactamente las mismas opciones.
  */
+
 object TicketCatalog {
 
     val types = listOf(

@@ -1,14 +1,17 @@
 package com.panalbit.panalsuite.ui.theme
 
+/**
+ * Las tipografías del tema.
+ *
+ * Se dejan las familias por defecto de Material 3 (Roboto en Android) para no
+ * arrastrar archivos de fuente al proyecto.
+ */
+
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-/**
- * Tipografias del tema. Se dejan las familias por defecto de Material 3
- * (Roboto en Android) para no arrastrar archivos de fuente al proyecto.
- */
 val PanalSuiteTypography = Typography(
     headlineSmall = TextStyle(
         fontWeight = FontWeight.SemiBold,

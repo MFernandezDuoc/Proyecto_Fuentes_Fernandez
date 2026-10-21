@@ -1,5 +1,19 @@
 package com.panalbit.panalsuite.repository
 
+/**
+ * Repositorio único de PanalSuite.
+ *
+ * Es el intermediario entre las pantallas y los datos:
+ *  - le pide la información a PanalApiService, la capa de acceso a la API, y
+ *  - la guarda en LocalStore, el almacenamiento local del teléfono.
+ *
+ * La estrategia es "primero lo local": si ya hay datos guardados se muestran de
+ * inmediato, y solo se vuelve a consultar la API cuando se pide refrescar. Así la
+ * aplicación funciona igual con o sin conexión.
+ *
+ * Los ViewModel son los únicos que usan esta clase; las pantallas nunca la ven.
+ */
+
 import com.panalbit.panalsuite.model.AuthSession
 import com.panalbit.panalsuite.model.Comment
 import com.panalbit.panalsuite.model.DashboardStats
@@ -10,24 +24,7 @@ import com.panalbit.panalsuite.model.TicketStatus
 import com.panalbit.panalsuite.model.User
 import com.panalbit.panalsuite.model.UserRole
 
-/**
- * Repositorio unico de PanalSuite.
- *
- * Es el intermediario entre las pantallas y los datos:
- *  - le pide la informacion a PanalApiService (la capa de acceso a la API), y
- *  - la guarda en LocalStore (el almacenamiento local del telefono).
- *
- * La estrategia es "primero lo local": si ya hay datos guardados se muestran de
- * inmediato, y solo se vuelve a consultar la API cuando se pide refrescar. Asi la
- * aplicacion funciona igual con o sin conexion.
- *
- * Los ViewModels son los unicos que usan esta clase; las pantallas nunca la ven.
- */
 object PanalSuiteRepository {
-
-    // ------------------------------------------------------------------
-    // Sesion
-    // ------------------------------------------------------------------
 
     suspend fun login(username: String, password: String): Result<AuthSession> {
         val envelope = PanalApiService.login(username, password).asApiEnvelope()
@@ -51,28 +48,19 @@ object PanalSuiteRepository {
 
     fun currentSession(): AuthSession? = LocalStore.loadSession()
 
-    /** Busca un ticket en lo que ya esta guardado. No llama a la API. */
     fun findTicket(ticketId: String): Ticket? =
         LocalStore.loadTickets().firstOrNull { it.id == ticketId }
 
-    /** Cuantos tickets hay guardados en el telefono. */
     fun savedTicketCount(): Int = LocalStore.loadTickets().size
 
-    /** Cuantos usuarios hay guardados en el telefono. */
     fun savedUserCount(): Int = LocalStore.loadUsers().size
 
-    /** Cuantos comentarios hay guardados, sumando todos los tickets. */
     fun savedCommentCount(): Int = LocalStore.loadTickets().sumOf { it.comments.size }
 
     fun logout() {
         LocalStore.saveSession(null)
     }
 
-    // ------------------------------------------------------------------
-    // Tickets
-    // ------------------------------------------------------------------
-
-    /** Devuelve los tickets guardados. Con forceRefresh vuelve a consultar la API. */
     suspend fun loadTickets(forceRefresh: Boolean = false): Result<List<Ticket>> {
         if (!forceRefresh) {
             val cached = LocalStore.loadTickets()
@@ -154,10 +142,6 @@ object PanalSuiteRepository {
         return Result.success(evidenceFromJson(data))
     }
 
-    // ------------------------------------------------------------------
-    // Usuarios
-    // ------------------------------------------------------------------
-
     suspend fun loadUsers(forceRefresh: Boolean = false): Result<List<User>> {
         if (!forceRefresh) {
             val cached = LocalStore.loadUsers()
@@ -206,14 +190,6 @@ object PanalSuiteRepository {
         return Result.success(userFromJson(data))
     }
 
-    // ------------------------------------------------------------------
-    // Indicadores
-    // ------------------------------------------------------------------
-
-    /**
-     * Calcula los indicadores del dashboard a partir de los tickets guardados.
-     * Es un calculo puro: no llama a la API ni dibuja nada.
-     */
     fun dashboardStats(): DashboardStats {
         val tickets = LocalStore.loadTickets()
         val resolved = tickets.filter { it.status == TicketStatus.RESOLVED || it.status == TicketStatus.CLOSED }
@@ -239,10 +215,6 @@ object PanalSuiteRepository {
         )
     }
 
-    // ------------------------------------------------------------------
-    // Internos
-    // ------------------------------------------------------------------
-
     private suspend fun fetchAndCacheTickets(): Result<List<Ticket>> {
         val envelope = PanalApiService.fetchTickets().asApiEnvelope()
         val array = envelope.dataArray
@@ -258,7 +230,6 @@ object PanalSuiteRepository {
         return Result.success(tickets)
     }
 
-    /** Baja de nuevo la bandeja desde la API y la deja guardada. Se usa despues de cada cambio. */
     private suspend fun refreshLocalTickets(): Result<List<Ticket>> = fetchAndCacheTickets()
 
     private suspend fun refreshLocalUsers() {

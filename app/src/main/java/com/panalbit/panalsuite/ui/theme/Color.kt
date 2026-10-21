@@ -1,8 +1,14 @@
 package com.panalbit.panalsuite.ui.theme
 
+/**
+ * La paleta de colores de la aplicación.
+ *
+ * Los colores del tema claro y del tema oscuro, más los colores de prioridad en
+ * ambas variantes.
+ */
+
 import androidx.compose.ui.graphics.Color
 
-// ---------- Tema claro ----------
 val LightPrimary = Color(0xFF2E5AAC)
 val LightOnPrimary = Color(0xFFFFFFFF)
 val LightPrimaryContainer = Color(0xFFDCE6FA)
@@ -31,7 +37,6 @@ val LightOnError = Color(0xFFFFFFFF)
 val LightErrorContainer = Color(0xFFFBDAD6)
 val LightOnErrorContainer = Color(0xFF410E0B)
 
-// ---------- Tema oscuro ----------
 val DarkPrimary = Color(0xFFAEC6FF)
 val DarkOnPrimary = Color(0xFF002E69)
 val DarkPrimaryContainer = Color(0xFF1B3C7A)
@@ -60,13 +65,11 @@ val DarkOnError = Color(0xFF690005)
 val DarkErrorContainer = Color(0xFF93000A)
 val DarkOnErrorContainer = Color(0xFFFFDAD6)
 
-// ---------- Colores de prioridad, tema claro ----------
 val PriorityLow = Color(0xFF2E7D32)
 val PriorityMedium = Color(0xFFB9760A)
 val PriorityHigh = Color(0xFFE06C00)
 val PriorityCritical = Color(0xFFC0392B)
 
-// ---------- Colores de prioridad, tema oscuro ----------
 val PriorityLowDark = Color(0xFF7ED492)
 val PriorityMediumDark = Color(0xFFF4C178)
 val PriorityHighDark = Color(0xFFFFB27A)

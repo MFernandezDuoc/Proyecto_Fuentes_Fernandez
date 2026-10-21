@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui
 
+/**
+ * Administración de los usuarios de prueba.
+ *
+ * Solo el rol Administrador llega acá, porque el menú inferior esconde la
+ * opción para los demás roles.
+ */
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -53,10 +60,6 @@ import com.panalbit.panalsuite.ui.theme.PanalSuiteTheme
 import com.panalbit.panalsuite.viewmodel.AdminUiState
 import com.panalbit.panalsuite.viewmodel.AdminViewModel
 
-/**
- * Administracion de los usuarios de prueba. Solo el rol Administrador llega aca,
- * porque el menu inferior esconde la opcion para los demas roles.
- */
 @Composable
 fun AdminScreen(viewModel: AdminViewModel) {
 

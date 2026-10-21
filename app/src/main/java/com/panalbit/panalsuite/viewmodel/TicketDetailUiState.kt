@@ -1,15 +1,16 @@
 package com.panalbit.panalsuite.viewmodel
 
+/**
+ * Estado de la pantalla de detalle de un ticket.
+ *
+ * Además del ticket guarda dos mini formularios: el de comentario y el de
+ * evidencia. Cada uno tiene su propio error calculado con get().
+ */
+
 import com.panalbit.panalsuite.model.Ticket
 import com.panalbit.panalsuite.model.TicketStatus
 import com.panalbit.panalsuite.model.UserRole
 
-/**
- * Estado de la pantalla de detalle de un ticket.
- *
- * Ademas del ticket guarda dos mini formularios: el de comentario y el de
- * evidencia. Cada uno tiene su propio error calculado con get().
- */
 data class TicketDetailUiState(
     val ticket: Ticket? = null,
     val currentUserName: String = "",
@@ -19,14 +20,11 @@ data class TicketDetailUiState(
     val errorMessage: String? = null,
     val feedbackMessage: String? = null,
 
-    // Formulario de comentario
     val commentText: String = "",
     val showCommentErrors: Boolean = false,
 
-    // Dialogo de cambio de estado
     val pendingStatus: TicketStatus? = null,
 
-    // Dialogo de evidencia
     val showEvidenceDialog: Boolean = false,
     val evidenceDescription: String = "",
     val evidenceIncludeLocation: Boolean = true,
@@ -47,11 +45,9 @@ data class TicketDetailUiState(
             null
         }
 
-    /** Un ticket cerrado o cancelado ya no admite mas cambios de estado. */
     val canChangeStatus: Boolean
         get() = ticket != null && !ticket.isClosed
 
-    /** Estados disponibles segun el estado actual del ticket. */
     val availableStatuses: List<TicketStatus>
         get() = ticket?.allowedNextStatuses ?: emptyList()
 
@@ -61,7 +57,6 @@ data class TicketDetailUiState(
     val canSaveEvidence: Boolean
         get() = evidenceError == null && !isSaving
 
-    /** Texto de la ubicacion simulada que se adjunta a la evidencia. */
     val simulatedLocation: String
         get() = "Santiago, Chile (-33.4489, -70.6693)"
 
@@ -72,7 +67,6 @@ data class TicketDetailUiState(
             else -> "$count comentarios"
         }
 
-    /** Solo resolutor, supervisor y administrador pueden mover el ticket. */
     val canManage: Boolean
         get() = currentUserRole.canManageTickets
 }

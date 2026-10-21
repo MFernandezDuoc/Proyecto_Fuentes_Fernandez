@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui.components
 
+/**
+ * La tarjeta de un ticket dentro de la bandeja.
+ *
+ * Muestra lo justo para decidir si vale la pena abrirlo: identificador,
+ * prioridad, título, estado, categoría, sucursal y responsable.
+ */
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,12 +33,6 @@ import com.panalbit.panalsuite.model.TicketPriority
 import com.panalbit.panalsuite.model.TicketStatus
 import com.panalbit.panalsuite.ui.theme.PanalSuiteTheme
 
-/**
- * Tarjeta de un ticket dentro de la bandeja.
- *
- * Muestra lo justo para decidir si vale la pena abrirlo: identificador,
- * prioridad, titulo, estado, categoria, sucursal y responsable.
- */
 @Composable
 fun TicketCard(
     ticket: Ticket,
@@ -97,7 +98,6 @@ fun TicketCard(
     }
 }
 
-/** Linea con un icono pequeno y un texto, para los datos secundarios. */
 @Composable
 private fun IconLine(
     icon: @Composable () -> Unit,

@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui
 
+/**
+ * Formulario de nueva solicitud.
+ *
+ * Es el formulario más importante de la aplicación: valida el título, el detalle
+ * y obliga a elegir tipo, categoría, prioridad y sucursal antes de enviar.
+ */
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,12 +50,6 @@ import com.panalbit.panalsuite.ui.theme.PanalSuiteTheme
 import com.panalbit.panalsuite.viewmodel.NewTicketUiState
 import com.panalbit.panalsuite.viewmodel.NewTicketViewModel
 
-/**
- * Formulario de nueva solicitud.
- *
- * Es el formulario mas importante de la aplicacion: valida el titulo, el detalle
- * y obliga a elegir tipo, categoria, prioridad y sucursal antes de enviar.
- */
 @Composable
 fun NewTicketScreen(
     viewModel: NewTicketViewModel,
@@ -59,7 +60,6 @@ fun NewTicketScreen(
     val state by viewModel.uiState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    // Cuando la solicitud queda creada, la pantalla avisa hacia arriba y limpia la marca.
     LaunchedEffect(state.createdTicketId) {
         val ticketId = state.createdTicketId
         if (ticketId != null) {

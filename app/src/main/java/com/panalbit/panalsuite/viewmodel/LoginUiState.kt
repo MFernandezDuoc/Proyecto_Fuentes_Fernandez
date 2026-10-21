@@ -1,14 +1,15 @@
 package com.panalbit.panalsuite.viewmodel
 
-import com.panalbit.panalsuite.model.AuthSession
-
 /**
  * Foto completa del formulario de acceso en un momento dado.
  *
  * Los errores no se guardan: se calculan con get() a partir de los valores
- * actuales. Asi el mensaje siempre corresponde a lo que el usuario escribio y
+ * actuales. Así el mensaje siempre corresponde a lo que el usuario escribió y
  * desaparece solo cuando lo corrige.
  */
+
+import com.panalbit.panalsuite.model.AuthSession
+
 data class LoginUiState(
     val username: String = "",
     val password: String = "",
@@ -35,7 +36,6 @@ data class LoginUiState(
     val isValid: Boolean
         get() = usernameError == null && passwordError == null
 
-    /** El boton queda deshabilitado mientras se esta validando contra la API. */
     val canSubmit: Boolean
         get() = isValid && !isLoading
 }

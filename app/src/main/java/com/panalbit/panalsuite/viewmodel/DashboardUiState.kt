@@ -1,10 +1,11 @@
 package com.panalbit.panalsuite.viewmodel
 
-import com.panalbit.panalsuite.model.DashboardStats
-
 /**
  * Estado del dashboard de indicadores.
  */
+
+import com.panalbit.panalsuite.model.DashboardStats
+
 data class DashboardUiState(
     val stats: DashboardStats = DashboardStats(),
     val currentUserName: String = "",
@@ -18,7 +19,6 @@ data class DashboardUiState(
     val averageResolutionText: String
         get() = if (stats.averageResolutionHours <= 0) "-" else "%.1f h".format(stats.averageResolutionHours)
 
-    /** Los equipos con mas carga primero, para dibujar las barras. */
     val workloadSorted: List<Pair<String, Int>>
         get() = stats.workloadByTeam.entries
             .sortedByDescending { it.value }

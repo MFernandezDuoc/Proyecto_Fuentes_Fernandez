@@ -1,10 +1,11 @@
 package com.panalbit.panalsuite.model
 
 /**
- * Como se ve la aplicacion.
+ * Las tres maneras de ver la aplicación.
  *
- * SYSTEM sigue el modo del telefono, LIGHT y DARK lo fuerzan.
+ * SYSTEM sigue el modo del teléfono, LIGHT y DARK lo fuerzan.
  */
+
 enum class ThemeMode(val label: String) {
     SYSTEM("Sistema"),
     LIGHT("Claro"),

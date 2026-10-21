@@ -1,14 +1,15 @@
 package com.panalbit.panalsuite.viewmodel
 
-import com.panalbit.panalsuite.model.TicketCatalog
-import com.panalbit.panalsuite.model.TicketPriority
-
 /**
  * Estado del formulario de nueva solicitud.
  *
- * Todos los errores se calculan con get(): el codigo del problema se valida
- * contra la lista de tipos y el texto libre tiene un largo minimo.
+ * Todos los errores se calculan con get(): el código del problema se valida
+ * contra la lista de tipos y el texto libre tiene un largo mínimo.
  */
+
+import com.panalbit.panalsuite.model.TicketCatalog
+import com.panalbit.panalsuite.model.TicketPriority
+
 data class NewTicketUiState(
     val title: String = "",
     val description: String = "",
@@ -42,7 +43,6 @@ data class NewTicketUiState(
     val canSubmit: Boolean
         get() = isValid && !isSaving
 
-    /** Cuantos caracteres lleva el detalle, para mostrarlo bajo el campo. */
     val descriptionCounter: String
         get() = "${description.trim().length} de 15 caracteres minimos"
 }

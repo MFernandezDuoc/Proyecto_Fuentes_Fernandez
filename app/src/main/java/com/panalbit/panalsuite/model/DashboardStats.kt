@@ -1,8 +1,11 @@
 package com.panalbit.panalsuite.model
 
 /**
- * Indicadores del dashboard. Se calculan a partir de la lista de tickets.
+ * Indicadores del dashboard.
+ *
+ * Se calculan a partir de la lista de tickets, nunca se guardan a mano.
  */
+
 data class DashboardStats(
     val totalOpen: Int = 0,
     val totalInProgress: Int = 0,
@@ -14,7 +17,6 @@ data class DashboardStats(
     val totalTickets: Int
         get() = totalOpen + totalInProgress + totalResolved
 
-    /** Porcentaje de tickets resueltos sobre el total, redondeado. */
     val resolutionRate: Int
         get() = if (totalTickets == 0) 0 else (totalResolved * 100) / totalTickets
 }

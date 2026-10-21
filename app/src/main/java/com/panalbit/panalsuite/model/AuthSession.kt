@@ -1,8 +1,11 @@
 package com.panalbit.panalsuite.model
 
 /**
- * Sesion activa. Se guarda en almacenamiento local para no tener que volver a entrar.
+ * Sesión activa.
+ *
+ * Se guarda en el almacenamiento local para no tener que volver a entrar cada vez.
  */
+
 data class AuthSession(
     val userId: String,
     val username: String,

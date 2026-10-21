@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui.components
 
+/**
+ * Las etiquetas de color de la aplicación.
+ *
+ * Cada chip es un Surface con el color que le corresponde: prioridad, estado,
+ * rol, y el que se toca para filtrar.
+ */
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -19,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import com.panalbit.panalsuite.model.TicketPriority
 import com.panalbit.panalsuite.model.TicketStatus
 
-/** Chip con el color de la prioridad del ticket. */
 @Composable
 fun PriorityChip(priority: TicketPriority, modifier: Modifier = Modifier) {
     val colors = priorityChipColors(priority)
@@ -39,7 +45,6 @@ fun PriorityChip(priority: TicketPriority, modifier: Modifier = Modifier) {
     }
 }
 
-/** Chip con el color del estado del ticket. */
 @Composable
 fun StatusChip(status: TicketStatus, modifier: Modifier = Modifier) {
     val colors = statusChipColors(status)
@@ -59,7 +64,6 @@ fun StatusChip(status: TicketStatus, modifier: Modifier = Modifier) {
     }
 }
 
-/** Etiqueta neutra para datos secundarios, como la categoria o la sucursal. */
 @Composable
 fun TagChip(text: String, modifier: Modifier = Modifier) {
     Surface(
@@ -76,7 +80,6 @@ fun TagChip(text: String, modifier: Modifier = Modifier) {
     }
 }
 
-/** Chip de rol, con el color primario para diferenciarlo de los de ticket. */
 @Composable
 fun RoleChip(text: String, color: Color, modifier: Modifier = Modifier) {
     Surface(
@@ -94,10 +97,6 @@ fun RoleChip(text: String, color: Color, modifier: Modifier = Modifier) {
     }
 }
 
-/**
- * Chip que se puede tocar para filtrar. Cuando esta seleccionado se pinta con el
- * color primario, para que se vea de inmediato que filtro esta activo.
- */
 @Composable
 fun SelectableChip(
     text: String,

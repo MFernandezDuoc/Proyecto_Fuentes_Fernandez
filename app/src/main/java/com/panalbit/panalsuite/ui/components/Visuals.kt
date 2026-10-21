@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui.components
 
+/**
+ * Los colores y los textos de apoyo.
+ *
+ * El color de cada prioridad y cada estado, el de cada rol, y los textos de
+ * apoyo como "hace 3 h".
+ */
+
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -18,13 +25,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-/** Par de colores para dibujar un chip: el fondo y el texto. */
 data class ChipColors(val container: Color, val content: Color)
 
-/**
- * La prioridad usa siempre el mismo color, pero mas claro en tema oscuro para
- * que se lea bien sobre el fondo negro.
- */
 @Composable
 fun priorityChipColors(priority: TicketPriority): ChipColors {
     val isDark = isSystemInDarkTheme()
@@ -42,7 +44,6 @@ fun priorityChipColors(priority: TicketPriority): ChipColors {
     )
 }
 
-/** El color del estado sale del tema, asi acompana el modo claro y oscuro solo. */
 @Composable
 fun statusChipColors(status: TicketStatus): ChipColors {
     val scheme = MaterialTheme.colorScheme
@@ -57,7 +58,6 @@ fun statusChipColors(status: TicketStatus): ChipColors {
     }
 }
 
-/** "hace 3 h" en vez de una fecha larga, para que la tarjeta se lea rapido. */
 fun relativeTime(millis: Long): String {
     val elapsedMinutes = (System.currentTimeMillis() - millis) / 60_000
 
@@ -69,11 +69,9 @@ fun relativeTime(millis: Long): String {
     }
 }
 
-/** Fecha completa, para el detalle del ticket. */
 fun fullDate(millis: Long): String =
     SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(Date(millis))
 
-/** Un color distinto por rol, para reconocerlo de un vistazo. */
 @Composable
 fun roleColor(role: com.panalbit.panalsuite.model.UserRole): Color {
     val scheme = MaterialTheme.colorScheme

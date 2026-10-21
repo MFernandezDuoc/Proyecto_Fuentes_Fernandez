@@ -1,5 +1,12 @@
 package com.panalbit.panalsuite.ui
 
+/**
+ * Detalle de un ticket.
+ *
+ * Como el ViewModel se crea una sola vez junto con la Activity, la navegación le
+ * indica cuál ticket abrir.
+ */
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
@@ -72,10 +79,6 @@ import com.panalbit.panalsuite.ui.theme.PanalSuiteTheme
 import com.panalbit.panalsuite.viewmodel.TicketDetailUiState
 import com.panalbit.panalsuite.viewmodel.TicketDetailViewModel
 
-/**
- * Detalle de un ticket. Como el ViewModel se crea una sola vez junto con la
- * Activity, la navegacion le indica cual ticket abrir.
- */
 @Composable
 fun TicketDetailScreen(
     viewModel: TicketDetailViewModel,
@@ -312,10 +315,6 @@ fun TicketDetailContent(
         )
     }
 }
-
-// ----------------------------------------------------------------------
-// Secciones
-// ----------------------------------------------------------------------
 
 @Composable
 private fun TicketHeader(ticket: Ticket) {

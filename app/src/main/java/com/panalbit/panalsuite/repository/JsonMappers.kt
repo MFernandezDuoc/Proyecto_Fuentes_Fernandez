@@ -1,5 +1,15 @@
 package com.panalbit.panalsuite.repository
 
+/**
+ * Conversiones entre los modelos de Kotlin y el texto JSON.
+ *
+ * Se usan las clases org.json que ya vienen dentro de Android, así no hay que
+ * agregar ninguna librería al proyecto.
+ *
+ * La regla es una sola: todo lo que entra desde JSON pasa por optAlgo con un
+ * valor por defecto, para que un campo faltante no cierre la aplicación.
+ */
+
 import com.panalbit.panalsuite.model.ChangeEntry
 import com.panalbit.panalsuite.model.Comment
 import com.panalbit.panalsuite.model.Evidence
@@ -10,18 +20,6 @@ import com.panalbit.panalsuite.model.User
 import com.panalbit.panalsuite.model.UserRole
 import org.json.JSONArray
 import org.json.JSONObject
-
-/**
- * Conversiones entre los modelos de Kotlin y el texto JSON.
- *
- * Se usan las clases org.json que ya vienen dentro de Android, asi no hay que
- * agregar ninguna libreria al proyecto.
- *
- * La regla es una sola: todo lo que entra desde JSON pasa por `optAlgo` con un
- * valor por defecto, para que un campo faltante no cierre la aplicacion.
- */
-
-// ---------------- USUARIO ----------------
 
 fun User.toJson(): JSONObject = JSONObject()
     .put("id", id)
@@ -40,8 +38,6 @@ fun userFromJson(json: JSONObject): User = User(
     isActive = json.optBoolean("isActive", true)
 )
 
-// ---------------- COMENTARIO ----------------
-
 fun Comment.toJson(): JSONObject = JSONObject()
     .put("id", id)
     .put("authorName", authorName)
@@ -55,8 +51,6 @@ fun commentFromJson(json: JSONObject): Comment = Comment(
     createdAt = json.optLong("createdAt")
 )
 
-// ---------------- EVIDENCIA ----------------
-
 fun Evidence.toJson(): JSONObject = JSONObject()
     .put("id", id)
     .put("description", description)
@@ -69,8 +63,6 @@ fun evidenceFromJson(json: JSONObject): Evidence = Evidence(
     location = if (json.isNull("location")) null else json.optString("location"),
     createdAt = json.optLong("createdAt")
 )
-
-// ---------------- TRAZABILIDAD ----------------
 
 fun ChangeEntry.toJson(): JSONObject = JSONObject()
     .put("id", id)
@@ -88,8 +80,6 @@ fun changeEntryFromJson(json: JSONObject): ChangeEntry = ChangeEntry(
     changedBy = json.optString("changedBy"),
     changedAt = json.optLong("changedAt")
 )
-
-// ---------------- TICKET ----------------
 
 fun Ticket.toJson(): JSONObject = JSONObject()
     .put("id", id)
@@ -149,8 +139,6 @@ private fun JSONArray?.toChangeList(): List<ChangeEntry> {
     }
 }
 
-// ---------------- LISTAS COMPLETAS ----------------
-
 fun ticketsToJson(tickets: List<Ticket>): String {
     val array = JSONArray()
     tickets.forEach { array.put(it.toJson()) }
@@ -165,8 +153,6 @@ fun ticketsFromJson(text: String?): List<Ticket> {
             array.optJSONObject(index)?.let { ticketFromJson(it) }
         }
     } catch (e: Exception) {
-        // Si el texto guardado quedo corrupto o viene de otra version, se descarta
-        // y la aplicacion vuelve a pedir la lista original.
         emptyList()
     }
 }
@@ -189,12 +175,6 @@ fun usersFromJson(text: String?): List<User> {
     }
 }
 
-// ---------------- RESPUESTA DE LA API ----------------
-
-/**
- * Forma que tienen todas las respuestas de la API:
- * { "success": true, "message": "...", "data": { ... } }
- */
 class ApiEnvelope(private val json: JSONObject) {
 
     val success: Boolean
@@ -210,7 +190,6 @@ class ApiEnvelope(private val json: JSONObject) {
         get() = json.optJSONArray("data")
 }
 
-/** Lee el texto JSON de una respuesta de la API. Si viene malformado, devuelve una respuesta fallida. */
 fun String.asApiEnvelope(): ApiEnvelope = try {
     ApiEnvelope(JSONObject(this))
 } catch (e: Exception) {

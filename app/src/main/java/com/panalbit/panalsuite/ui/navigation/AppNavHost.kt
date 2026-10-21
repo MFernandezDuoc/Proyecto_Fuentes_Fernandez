@@ -1,5 +1,13 @@
 package com.panalbit.panalsuite.ui.navigation
 
+/**
+ * El grafo de navegación de la aplicación.
+ *
+ * Es el único archivo que sabe qué pantallas existen y cómo se conectan. Las
+ * pantallas no reciben el NavController: reciben funciones, y es el grafo el que
+ * decide a dónde se va. La barra inferior se arma según el rol.
+ */
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -43,19 +51,12 @@ import com.panalbit.panalsuite.viewmodel.ProfileViewModel
 import com.panalbit.panalsuite.viewmodel.SettingsViewModel
 import com.panalbit.panalsuite.viewmodel.TicketDetailViewModel
 
-/** Una opcion de la barra inferior. */
 private data class BottomItem(
     val route: String,
     val label: String,
     val icon: ImageVector
 )
 
-/**
- * Arma la barra inferior segun el rol.
- *
- * Esta es la parte visible del control de acceso: el solicitante no ve
- * indicadores ni administracion, y el resolutor no ve ninguna de las dos.
- */
 private fun bottomItemsFor(role: UserRole?): List<BottomItem> {
     if (role == null) return emptyList()
 
@@ -80,12 +81,6 @@ private fun bottomItemsFor(role: UserRole?): List<BottomItem> {
     return items
 }
 
-/**
- * Grafo de navegacion de la aplicacion.
- *
- * Es el unico archivo que sabe que pantallas existen y como se conectan.
- * Las pantallas no reciben el NavController: reciben funciones.
- */
 @Composable
 fun AppNavHost(
     navController: NavHostController,
@@ -131,7 +126,6 @@ fun AppNavHost(
             modifier = Modifier.padding(innerPadding)
         ) {
 
-            // NODO 1: acceso
             composable(Routes.LOGIN) {
                 LoginScreen(
                     viewModel = loginViewModel,
@@ -139,7 +133,6 @@ fun AppNavHost(
                 )
             }
 
-            // NODO 2: bandeja de trabajo
             composable(Routes.INBOX) {
                 InboxScreen(
                     viewModel = inboxViewModel,
@@ -151,7 +144,6 @@ fun AppNavHost(
                 )
             }
 
-            // NODO 3: detalle del ticket, con argumento en la ruta
             composable(
                 route = Routes.TICKET_DETAIL,
                 arguments = listOf(navArgument("ticketId") { type = NavType.StringType })
@@ -162,7 +154,6 @@ fun AppNavHost(
                 )
             }
 
-            // NODO 4: formulario de nueva solicitud
             composable(Routes.NEW_TICKET) {
                 NewTicketScreen(
                     viewModel = newTicketViewModel,
@@ -171,24 +162,20 @@ fun AppNavHost(
                         newTicketViewModel.reset()
                         ticketDetailViewModel.openTicket(ticketId)
                         navController.navigate(Routes.ticketDetail(ticketId)) {
-                            // Saca el formulario de la pila: Atras no vuelve a el.
                             popUpTo(Routes.INBOX)
                         }
                     }
                 )
             }
 
-            // NODO 5: indicadores
             composable(Routes.DASHBOARD) {
                 DashboardScreen(viewModel = dashboardViewModel)
             }
 
-            // NODO 6: administracion de usuarios
             composable(Routes.ADMIN) {
                 AdminScreen(viewModel = adminViewModel)
             }
 
-            // NODO 7: perfil
             composable(Routes.PROFILE) {
                 val preferences by settingsViewModel.preferences.collectAsState()
                 ProfileScreen(
@@ -199,7 +186,6 @@ fun AppNavHost(
                 )
             }
 
-            // NODO 8: ajustes
             composable(Routes.SETTINGS) {
                 SettingsScreen(
                     viewModel = settingsViewModel,
@@ -210,10 +196,6 @@ fun AppNavHost(
     }
 }
 
-/**
- * Navega sin apilar copias de la misma pantalla.
- * Se usa solo para la barra inferior, que es un cambio de seccion, no un avance.
- */
 private fun NavHostController.navigateSingleTopTo(route: String) {
     navigate(route) {
         popUpTo(graph.findStartDestination().id) {
